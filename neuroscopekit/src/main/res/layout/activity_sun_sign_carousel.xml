@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#000">
 
-    <com.theroom101.domain.ui.sunsigncarousel.SunSignCarousel
+    <com.theroom101.ui.sunsigncarousel.SunSignCarousel
         android:id="@+id/carousel"
         android:layout_width="0dp"
         android:layout_height="72dp"

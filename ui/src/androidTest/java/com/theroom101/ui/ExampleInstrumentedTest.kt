@@ -1,4 +1,4 @@
-package com.theroom101.domain
+package com.theroom101.ui
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
