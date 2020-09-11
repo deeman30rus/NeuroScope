@@ -1,4 +1,4 @@
-package com.theroom101.domain
+package com.theroom101.core.domain
 
 enum class SunSign {
     Capricorn,
