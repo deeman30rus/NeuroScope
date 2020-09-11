@@ -1,4 +1,4 @@
-package com.theroom101.sdk
+package com.theroom101.domain
 
 import org.junit.Test
 

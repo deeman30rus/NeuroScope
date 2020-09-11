@@ -1,4 +1,4 @@
-package com.theroom101.sdk
+package com.theroom101.domain
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.theroom101.sdk.test", appContext.packageName)
+        assertEquals("com.theroom101.domain.test", appContext.packageName)
     }
 }
