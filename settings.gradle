@@ -1,2 +1,5 @@
+include ':core'
+include ':ui'
+include ':neuroscopekit'
 include ':app'
 rootProject.name = "NeuroScope"
