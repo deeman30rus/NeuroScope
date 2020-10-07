@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">NeuroScope</string>
+    <string name="app_name">Stars Tell</string>
+
+    <string name="app_description">Astrology Horoscrope</string>
 </resources>
