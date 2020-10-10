@@ -2,5 +2,7 @@
 <resources>
 
     <color name="core_white50">#7fffffff</color>
-    <color name="core_cornflower_blue">#6951FA</color>
+    <color name="core_cornflower_blue">#ff6951FA</color>
+    <color name="core_black_russian">#ff000109</color>
+    <color name="core_haity">#0A0B23</color>
 </resources>

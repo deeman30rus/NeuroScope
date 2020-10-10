@@ -13,7 +13,7 @@
     </style>
 
     <style name="AppTheme.Launcher" parent="AppTheme" >
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/app_logo</item>
     </style>
 
 </resources>
