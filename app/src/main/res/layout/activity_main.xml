@@ -13,10 +13,11 @@
         android:id="@+id/sunsign_carousel"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:background="#0ff"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- // Main content area -->
 
-    <include layout="@layout/app_bottom_sheet" />
+    <include layout="@layout/ui_view_forecast_bottom_sheet" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

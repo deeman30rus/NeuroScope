@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottom_sheet_container"
+    android:id="@+id/forecast_view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:behavior_hideable="false"
     app:behavior_peekHeight="90dp"
     app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <com.theroom101.ui.sunsigncarousel.SunSignCarousel
+        android:id="@+id/sunsign_carousel"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#00f"/>
 
     <View
         android:id="@+id/chevron"
