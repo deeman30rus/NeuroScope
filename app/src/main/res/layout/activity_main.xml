@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,13 +7,6 @@
     tools:context=".activities.MainActivity">
 
     <!--  Main content area  -->
-
-    <com.theroom101.ui.sunsigncarousel.SunSignCarousel
-        android:id="@+id/sunsign_carousel"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#0ff"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- // Main content area -->
 
