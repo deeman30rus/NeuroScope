@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/transparent"
     app:behavior_hideable="false"
     app:behavior_peekHeight="90dp"
     app:layout_behavior="@string/bottom_sheet_behavior">
@@ -13,37 +14,42 @@
         android:id="@+id/sunsign_carousel"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#00f"/>
+        android:background="#00f" />
 
     <View
         android:id="@+id/chevron"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:background="#f00"/>
+        android:background="#f00" />
 
-    <View
-        android:id="@+id/foresight_period"
+    <LinearLayout
+        android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#ff0"/>
+        android:layout_height="match_parent"
+        android:background="@color/core_black_russian_50"
+        android:orientation="vertical">
 
-    <View
-        android:id="@+id/planet_tags"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#f0f" />
+        <View
+            android:id="@+id/foresight_period"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
 
-    <View
-        android:id="@+id/forecast"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#0f0" />
+        <View
+            android:id="@+id/planet_tags"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
 
-    <View
-        android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="#0ff"/>
+        <View
+            android:id="@+id/forecast"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <View
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+    </LinearLayout>
 
 </LinearLayout>
