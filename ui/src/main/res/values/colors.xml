@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ui_forecast_view_start_color">@color/core_black_russian_0</color>
+    <color name="ui_forecast_view_finish_color">@color/core_black_russian_50</color>
+
+</resources>
