@@ -1,22 +1,44 @@
-package com.theroom101.ui.parallax
+package com.theroom101.ui.parallax.sensor
 
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import com.theroom101.core.log.DebugLog
 import com.theroom101.core.physics.Vector
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.*
 
-internal typealias OnGravityChanged = (Vector) -> Unit
+private val logger = DebugLog.default
 
 internal class Gravitometer(
     context: Context,
-    private val onGravityChanged: OnGravityChanged
-): SensorEventListener {
+    private val tickRate: Int
+) : SensorEventListener {
 
     private val sensorManager = context.sensorManager
 
     private val sensor = sensorManager.gravitySensor
+
+    private val readings = GravityReadings(1000f / tickRate)
+
+    private val readingsFlow = channelFlow {
+
+        val period = (1000f / tickRate).toLong()
+        var started = true
+
+        while(started) {
+            offer(readings.value())
+            logger.log { "offered ${readings.value().x} ${readings.value().y}" }
+            readings.extrapolate()
+
+            delay(period)
+        }
+
+        awaitClose { started = false }
+    }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
 
@@ -24,13 +46,21 @@ internal class Gravitometer(
         event?.let { e ->
             val g = Vector(-e.gravityX, e.gravityY)
 
-            onGravityChanged(g)
+            logger.log { "sensor changed ${g.x} ${g.y}" }
+
+            readings.correct(g)
         }
     }
 
-    fun startReadings() = registerListener()
+    fun prepare() {
+        registerListener()
+    }
 
-    fun stopReadings() = unregisterListener()
+    fun release() {
+        unregisterListener()
+    }
+
+    fun readings() = readingsFlow.flowOn(Dispatchers.Default)
 
     private fun registerListener() {
         sensorManager.registerListener(

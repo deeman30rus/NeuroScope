@@ -9,12 +9,17 @@ import android.view.Choreographer
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.theroom101.core.android.dp
+import com.theroom101.core.log.DebugLog
 import com.theroom101.core.physics.Vector
 import com.theroom101.core.physics.createArea
 import com.theroom101.core.physics.randomPoint
 import com.theroom101.ui.R
+import com.theroom101.ui.parallax.sensor.Gravitometer
 import com.theroom101.ui.parallax.vm.LayerViewModel
 import com.theroom101.ui.parallax.vm.Star
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -26,11 +31,14 @@ private const val LAYER_3_AREA = 1.32f
 private const val LAYER_4_AREA = 1.64f
 
 private val layerDescriptions = listOf(
-    Layer.Description(LAYER_1_AREA, 18, listOf(0.15f, 0.15f, 0.7f)),
-    Layer.Description(LAYER_2_AREA, 18, listOf(0.2f, 0.2f, 0.6f)),
-    Layer.Description(LAYER_3_AREA, 18, listOf(0.4f, 0.4f, 0.2f)),
-    Layer.Description(LAYER_4_AREA, 18, listOf(0.45f, 0.45f, 0.1f)),
+//    Layer.Description(LAYER_1_AREA, 18, listOf(0.15f, 0.15f, 0.7f)),
+//    Layer.Description(LAYER_2_AREA, 18, listOf(0.2f, 0.2f, 0.6f)),
+//    Layer.Description(LAYER_3_AREA, 18, listOf(0.4f, 0.4f, 0.2f)),
+//    Layer.Description(LAYER_4_AREA, 18, listOf(0.45f, 0.45f, 0.1f)),
+    Layer.Description(LAYER_4_AREA, 1, listOf(0.45f, 0.45f, 0.1f)),
 )
+
+private val logger = DebugLog.default
 
 class ParallaxView @JvmOverloads constructor(
     context: Context,
@@ -39,7 +47,8 @@ class ParallaxView @JvmOverloads constructor(
 ) :
     View(context, attrs, defStyleAttr) {
 
-    private val gravitometer = Gravitometer(context, ::updateGravity)
+    private val gravitometer = Gravitometer(context, 60)
+    private val scope = MainScope() + SupervisorJob()
 
     private val choreographer: Choreographer by lazy { Choreographer.getInstance() }
 
@@ -68,13 +77,16 @@ class ParallaxView @JvmOverloads constructor(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
-        gravitometer.startReadings()
+        gravitometer.prepare()
+        gravitometer.readings().onEach { updateGravity(it) }.launchIn(scope)
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
 
-        gravitometer.stopReadings()
+        gravitometer.release()
+        scope.coroutineContext.cancelChildren()
+
         initialized = false
     }
 

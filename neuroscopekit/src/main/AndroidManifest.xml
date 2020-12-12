@@ -21,6 +21,8 @@
         <activity android:name=".activities.WidgetsActivity" />
 
         <activity android:name=".activities.SunSignCarouselActivity" />
+
+        <activity android:name=".activities.ParallaxBgActivity" />
     </application>
 
 </manifest>
