@@ -58,7 +58,7 @@ private class Progress {
     }
 
     fun inc() {
-        value = min(1f, value + 1f / 60)
+        value = min(1f, value + 1f / 30)
     }
 }
 

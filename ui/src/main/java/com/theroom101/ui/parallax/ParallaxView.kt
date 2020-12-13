@@ -23,8 +23,6 @@ import kotlinx.coroutines.plus
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-private const val G = 9.81f
-
 private const val LAYER_1_AREA = 1.08f
 private const val LAYER_2_AREA = 1.16f
 private const val LAYER_3_AREA = 1.24f
@@ -174,7 +172,7 @@ private class Layer private constructor(
             val deltaMax = (width * (description.factor - 1)) / 2
 
             val starsVm = LayerViewModel(
-                a = deltaMax / G
+                a = deltaMax / 5.5f
             ) {
                 (1..description.maxStars).map {
                     val r = Random.nextFloat()
