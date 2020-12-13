@@ -8,6 +8,10 @@
 
     <!--  Main content area  -->
 
+    <com.theroom101.ui.parallax.ParallaxView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <!-- // Main content area -->
 
     <include layout="@layout/ui_view_forecast_bottom_sheet" />
