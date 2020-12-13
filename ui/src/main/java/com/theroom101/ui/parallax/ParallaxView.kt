@@ -2,6 +2,8 @@ package com.theroom101.ui.parallax
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.Point
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -17,9 +19,10 @@ import com.theroom101.ui.R
 import com.theroom101.ui.parallax.sensor.Gravitometer
 import com.theroom101.ui.parallax.vm.LayerViewModel
 import com.theroom101.ui.parallax.vm.Star
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.plus
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -27,15 +30,14 @@ private const val G = 9.81f
 
 private const val LAYER_1_AREA = 1.08f
 private const val LAYER_2_AREA = 1.16f
-private const val LAYER_3_AREA = 1.32f
-private const val LAYER_4_AREA = 1.64f
+private const val LAYER_3_AREA = 1.24f
+private const val LAYER_4_AREA = 1.32f
 
 private val layerDescriptions = listOf(
-//    Layer.Description(LAYER_1_AREA, 18, listOf(0.15f, 0.15f, 0.7f)),
-//    Layer.Description(LAYER_2_AREA, 18, listOf(0.2f, 0.2f, 0.6f)),
-//    Layer.Description(LAYER_3_AREA, 18, listOf(0.4f, 0.4f, 0.2f)),
-//    Layer.Description(LAYER_4_AREA, 18, listOf(0.45f, 0.45f, 0.1f)),
-    Layer.Description(LAYER_4_AREA, 1, listOf(0.45f, 0.45f, 0.1f)),
+    Layer.Description(LAYER_1_AREA, 18, listOf(0.15f, 0.15f, 0.7f)),
+    Layer.Description(LAYER_2_AREA, 18, listOf(0.2f, 0.2f, 0.6f)),
+    Layer.Description(LAYER_3_AREA, 18, listOf(0.4f, 0.4f, 0.2f)),
+    Layer.Description(LAYER_4_AREA, 18, listOf(0.45f, 0.45f, 0.1f)),
 )
 
 private val logger = DebugLog.default
@@ -47,7 +49,7 @@ class ParallaxView @JvmOverloads constructor(
 ) :
     View(context, attrs, defStyleAttr) {
 
-    private val gravitometer = Gravitometer(context, 60)
+    private val gravitometer = Gravitometer(context, ::updateGravity)
     private val scope = MainScope() + SupervisorJob()
 
     private val choreographer: Choreographer by lazy { Choreographer.getInstance() }
@@ -78,7 +80,6 @@ class ParallaxView @JvmOverloads constructor(
         super.onAttachedToWindow()
 
         gravitometer.prepare()
-        gravitometer.readings().onEach { updateGravity(it) }.launchIn(scope)
     }
 
     override fun onDetachedFromWindow() {
@@ -127,7 +128,6 @@ private class Layer private constructor(
 ) {
 
     fun drawOn(canvas: Canvas) {
-
         layerVM.stars.forEach { star ->
             val alpha = (255 * star.alpha).toInt()
 
@@ -175,7 +175,7 @@ private class Layer private constructor(
 
             val layerArea = createArea(center, layerWidth, layerHeight)
 
-            val deltaMax = (width * (description.factor - 1))
+            val deltaMax = (width * (description.factor - 1)) / 2
 
             val starsVm = LayerViewModel(
                 a = deltaMax / G

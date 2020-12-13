@@ -6,6 +6,8 @@ import kotlin.random.Random
 
 typealias Area = Rect
 
+operator fun Area.contains(point: Point) = point.x in (left .. right) && point.y in (top .. bottom)
+
 fun createArea(center: Point, width: Int, height: Int) = Rect(
     center.x - width / 2,
     center.y - height / 2,

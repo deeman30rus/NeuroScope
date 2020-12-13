@@ -1,8 +1,7 @@
 package com.theroom101.ui.parallax.vm
 
-import android.graphics.Point
-import android.graphics.drawable.Drawable
 import com.theroom101.core.physics.Vector
+import kotlin.math.min
 
 /**
  * from mg = kx (spring model)
@@ -12,56 +11,67 @@ internal class LayerViewModel(
     private val a: Float,
     generator: () -> List<Star>
 ) {
-    private var delta = Vector()
+    private var accel = Vector()
 
+    private var progress = Progress()
+
+    private var interpolator = Interpolator(Vector(), Vector())
     var gravity = Vector()
-        set(value) {
+        set(value)  {
+            interpolator = Interpolator(accel, value)
+
             field = value
-            delta = value * a
+
+            progress.reNew()
         }
 
     val stars = generator.invoke()
     private val active = stars.filter { it.active }
 
     val dx: Int
-        get() = delta.x.toInt()
+        get() = (accel.x * a).toInt()
 
     val dy: Int
-        get() = delta.y.toInt()
+        get() = (accel.y * a).toInt()
 
     fun update() {
         active.forEach { star ->
             if (star.dim) star.dim()
             else star.shine()
         }
+
+        if (accel == gravity) return
+
+
+        accel = interpolator.value(progress.value)
+        progress.inc()
     }
 }
 
-internal class Star(
-    val drawable: Drawable,
-    coordinates: Point,
-    val size: Int,
-    var alpha: Float,
-    val active: Boolean,
-    var dim: Boolean
-) {
+private class Progress {
 
-    val x = coordinates.x
-    val y = coordinates.y
+    var value = 0f
+        private set
 
-    fun dim() {
-        alpha -= 0.03f
-
-        if (alpha < 0.04) {
-            dim = false
-        }
+    fun reNew() {
+        value = 0f
     }
 
-    fun shine() {
-        alpha += 0.03f
+    fun inc() {
+        value = min(1f, value + 1f / 60)
+    }
+}
 
-        if (alpha > 0.96) {
-            dim = true
-        }
+private class Interpolator(
+    private val start: Vector,
+    private val end: Vector
+) {
+
+    /**
+     * calculates intermediate value between [start] and [end] with given progress
+     * @param progress float value in range 0 .. 1
+     */
+    fun value(progress: Float): Vector {
+        return start + (end - start) * progress
     }
 }
