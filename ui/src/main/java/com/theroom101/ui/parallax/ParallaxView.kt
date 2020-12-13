@@ -2,8 +2,6 @@ package com.theroom101.ui.parallax
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.Point
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -11,7 +9,6 @@ import android.view.Choreographer
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.theroom101.core.android.dp
-import com.theroom101.core.log.DebugLog
 import com.theroom101.core.physics.Vector
 import com.theroom101.core.physics.createArea
 import com.theroom101.core.physics.randomPoint
@@ -39,8 +36,6 @@ private val layerDescriptions = listOf(
     Layer.Description(LAYER_3_AREA, 18, listOf(0.4f, 0.4f, 0.2f)),
     Layer.Description(LAYER_4_AREA, 18, listOf(0.45f, 0.45f, 0.1f)),
 )
-
-private val logger = DebugLog.default
 
 class ParallaxView @JvmOverloads constructor(
     context: Context,
@@ -98,9 +93,9 @@ class ParallaxView @JvmOverloads constructor(
     private fun initialize(w: Int, h: Int) {
         choreographer.postFrameCallback(frameRequester)
 
-        for (description in layerDescriptions) {
+        for ((i, description) in layerDescriptions.withIndex()) {
             layers.add(
-                Layer.create(context, w, h, description)
+                Layer.create(i, context, w, h, description)
             )
         }
 
@@ -152,6 +147,7 @@ private class Layer private constructor(
     companion object {
 
         fun create(
+            layerNo: Int,
             context: Context,
             width: Int,
             height: Int,
@@ -187,7 +183,7 @@ private class Layer private constructor(
                     Star(
                         drawable = context.starDrawable(type).mutate(),
                         coordinates = layerArea.randomPoint(),
-                        size = type.starSize,
+                        size = starSize(layerNo),
                         alpha = Random.nextFloat(),
                         active = Random.nextBoolean(),
                         dim = Random.nextBoolean()
@@ -201,19 +197,20 @@ private class Layer private constructor(
 }
 
 private fun Context.starDrawable(type: Int): Drawable = when (type) {
-    0 -> ContextCompat.getDrawable(this, R.drawable.ui_star_1)
+    0 -> ContextCompat.getDrawable(this, R.drawable.ui_star1)
         ?: error("star 1 drawable resource not found")
-    1 -> ContextCompat.getDrawable(this, R.drawable.ui_star_2)
+    1 -> ContextCompat.getDrawable(this, R.drawable.ui_star2)
         ?: error("star 2 drawable resource not found")
-    2 -> ContextCompat.getDrawable(this, R.drawable.ui_star_3)
+    2 -> ContextCompat.getDrawable(this, R.drawable.ui_star3)
         ?: error("star 3 drawable resource not found")
     else -> error("Unknown start type $type")
 }
 
-private val Int.starSize: Int
-    get() = when (this) {
-        0 -> Random.nextInt(dp(8)..dp(15))
-        1 -> Random.nextInt(dp(6)..dp(12))
-        2 -> Random.nextInt(dp(4), dp(8))
-        else -> error("Unknown star type $this")
-    }
+
+private fun starSize(layerNo: Int) = when(layerNo) {
+    0 -> Random.nextInt(dp(4) .. dp(7))
+    1 -> Random.nextInt(dp(7) .. dp(10))
+    2 -> Random.nextInt(dp(10) .. dp(13))
+    3 -> Random.nextInt(dp(13) .. dp(16))
+    else -> error("Unsupported layer $layerNo")
+}

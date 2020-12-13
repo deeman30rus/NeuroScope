@@ -3,6 +3,11 @@ package com.theroom101.ui.parallax.vm
 import android.graphics.Point
 import android.graphics.drawable.Drawable
 
+private const val INC = 0.005f
+
+private const val LOW_THRESHOLD = INC * 1.1f
+private const val HIGHT_THRESHOLD = 1 - INC * 1.1f
+
 internal class Star(
     val drawable: Drawable,
     coordinates: Point,
@@ -16,17 +21,17 @@ internal class Star(
     val y = coordinates.y
 
     fun dim() {
-        alpha -= 0.03f
+        alpha -= INC
 
-        if (alpha < 0.04) {
+        if (alpha < LOW_THRESHOLD) {
             dim = false
         }
     }
 
     fun shine() {
-        alpha += 0.03f
+        alpha += INC
 
-        if (alpha > 0.96) {
+        if (alpha > HIGHT_THRESHOLD) {
             dim = true
         }
     }
