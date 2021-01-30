@@ -28,6 +28,6 @@ private val SunSign.icon: Int
         SunSign.Virgo -> R.drawable.ui_virgo_icon
         SunSign.Libra -> R.drawable.ui_libra_icon
         SunSign.Scropio -> R.drawable.ui_scorpio_icon
-        SunSign.Ophiuchus -> R.drawable.ui_neptune_icon // todo переделать на правильную иконку
+        SunSign.Ophiuchus -> R.drawable.ui_ophiuchus_icon
         SunSign.Sagittarius -> R.drawable.ui_sagittarius_icon
     }
