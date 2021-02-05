@@ -3,8 +3,6 @@ package com.theroom101.core.math
 import kotlin.math.exp
 import kotlin.math.sqrt
 
-private val A = 1f / sqrt(2 * Math.PI)
-
 /**
  * @param x random value
  * @param ev expected value
@@ -14,4 +12,8 @@ private val A = 1f / sqrt(2 * Math.PI)
  */
 fun gaussProb(x: Float, ev: Float, variance: Float): Double {
     return exp(-1f / 2f * (x - ev) * (x - ev) / variance).toDouble()
+}
+
+fun arc(x: Int, x0: Int, r: Int): Int {
+    return (-sqrt((r * r - (x - x0) * (x - x0)).toDouble()) + r).toInt()
 }

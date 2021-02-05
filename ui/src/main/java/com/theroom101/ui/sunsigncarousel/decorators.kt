@@ -1,15 +1,13 @@
 package com.theroom101.ui.sunsigncarousel
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.DashPathEffect
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.graphics.drawable.VectorDrawable
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.theroom101.core.android.dpF
+import com.theroom101.core.math.arc
 import com.theroom101.core.math.gaussProb
 import com.theroom101.ui.R
 
@@ -82,7 +80,7 @@ internal class CarouselAlphaDecoration : RecyclerView.ItemDecoration() {
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
 
-        for (i in 0 .. parent.childCount) {
+        for (i in 0..parent.childCount) {
             val child = parent.getChildAt(i) as? ImageView ?: continue
             val drawable = child.drawable as VectorDrawable
 
@@ -96,5 +94,25 @@ internal class CarouselAlphaDecoration : RecyclerView.ItemDecoration() {
         val p = gaussProb(child.left.toFloat(), cx, variance)
 
         return p
+    }
+}
+
+internal class BottomOffsetDecoration : RecyclerView.ItemDecoration() {
+
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        val radius = (parent as SunSignCarousel).radius
+        for (i in 0..parent.childCount) {
+            val child = parent.getChildAt(i) as? ImageView ?: continue
+            val midX = child.left + SunSignCarousel.ITEM_WIDTH / 2
+
+            val bias = arc(midX, parent.width / 2, radius)
+
+            child.setPadding(
+                    child.paddingLeft,
+                    child.paddingTop,
+                    child.paddingRight,
+                    bias
+            )
+        }
     }
 }

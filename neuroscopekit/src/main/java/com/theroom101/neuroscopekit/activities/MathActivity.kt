@@ -12,6 +12,7 @@ class MathActivity: BaseActivity() {
 
     private val menu = Menu.Builder().apply {
         items.add(ScreenMenuItem("Gauss", GaussActivity::class))
+        items.add(ScreenMenuItem("Arc", ArcActivity::class))
     }.build()
 
     override fun onCreate(savedInstanceState: Bundle?) {

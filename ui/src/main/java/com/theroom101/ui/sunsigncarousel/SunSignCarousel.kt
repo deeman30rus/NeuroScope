@@ -20,6 +20,8 @@ class SunSignCarousel @JvmOverloads constructor(
 
     private val centerItemDecoration = CarouselMainItemDecoration(context)
 
+    var radius = 1000 // вычислено эмпирически, см. NeuroscopeKit -> Math -> Arc
+
     init {
         layoutManager = CarouselLayoutManager(context)
         adapter = CarouselAdapter(context)
@@ -29,6 +31,7 @@ class SunSignCarousel @JvmOverloads constructor(
 
         addItemDecoration(centerItemDecoration)
         addItemDecoration(CarouselAlphaDecoration())
+        addItemDecoration(BottomOffsetDecoration())
 
         addOnScrollListener(ScrollListener())
     }

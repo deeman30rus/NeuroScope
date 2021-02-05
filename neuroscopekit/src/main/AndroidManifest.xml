@@ -28,6 +28,9 @@
         <activity android:name=".activities.MathActivity" />
 
         <activity android:name=".activities.GaussActivity" />
+
+        <activity android:name=".activities.ArcActivity" />
     </application>
+
 
 </manifest>
