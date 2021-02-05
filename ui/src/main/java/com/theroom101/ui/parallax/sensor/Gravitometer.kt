@@ -5,7 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import com.theroom101.core.physics.Vector
+import com.theroom101.core.math.Vector
 
 internal class Gravitometer(
     context: Context,

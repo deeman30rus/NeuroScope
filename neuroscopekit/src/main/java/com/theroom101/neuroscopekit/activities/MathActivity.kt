@@ -8,24 +8,23 @@ import com.theroom101.neuroscopekit.menu.Menu
 import com.theroom101.neuroscopekit.menu.MenuView
 import com.theroom101.neuroscopekit.menu.ScreenMenuItem
 
-class WidgetsActivity: BaseActivity() {
+class MathActivity: BaseActivity() {
 
     private val menu = Menu.Builder().apply {
-        items.add(ScreenMenuItem("Sun sing carousel", SunSignCarouselActivity::class))
-        items.add(ScreenMenuItem("Parallax bg", ParallaxBgActivity::class))
+        items.add(ScreenMenuItem("Gauss", GaussActivity::class))
+        items.add(ScreenMenuItem("Arc", ArcActivity::class))
     }.build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.kit_a_widget)
+
+        setContentView(R.layout.kit_a_math)
 
         findViewById<FrameLayout>(R.id.container)?.let { container ->
-
-            val menuView = MenuView(this@WidgetsActivity)
+            val menuView = MenuView(this@MathActivity)
             menuView.setMenu(menu)
 
             container.addView(menuView)
         }
     }
 }
-

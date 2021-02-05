@@ -1,4 +1,4 @@
-package com.theroom101.core.physics
+package com.theroom101.core.math
 
 import android.graphics.Point
 
