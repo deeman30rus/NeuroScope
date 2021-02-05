@@ -23,7 +23,6 @@ internal class CarouselMainItemDecoration(
     private val outerRadius = dpF(40)
     private val innerRadius = dpF(36)
 
-
     private val resources = context.resources
 
     private val paintOuter = Paint().apply {
@@ -43,6 +42,8 @@ internal class CarouselMainItemDecoration(
 
     private val rect = RectF()
 
+    var biasAngle: Float = 0f
+
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
 
@@ -59,7 +60,7 @@ internal class CarouselMainItemDecoration(
         c.drawCircle(cx.toFloat(), cy.toFloat(), innerRadius, paintInner)
 
         for (startAngle in angles) {
-            c.drawArc(rect, startAngle, 20f, false, paintOuter)
+            c.drawArc(rect, biasAngle + startAngle, 20f, false, paintOuter)
         }
     }
 }
