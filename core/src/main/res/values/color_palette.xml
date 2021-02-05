@@ -3,6 +3,7 @@
 
     <color name="core_white">#ffffffff</color>
     <color name="core_white50">#7fffffff</color>
+    <color name="core_white25">#5fffffff</color>
     <color name="core_cornflower_blue">#ff6951FA</color>
     <color name="core_black_russian">#ff000109</color>
     <color name="core_black_russian_50">#7f000109</color>

@@ -21,5 +21,7 @@ class SunSignCarousel @JvmOverloads constructor(
 
         LinearSnapHelper().attachToRecyclerView(this)
         scrollToPosition(INF / 2)
+
+        addItemDecoration(CarouselMainItemDecoration(context))
     }
 }
