@@ -1,6 +1,6 @@
 package com.theroom101.ui.parallax.vm
 
-import com.theroom101.core.physics.Vector
+import com.theroom101.core.math.Vector
 import kotlin.math.min
 
 /**

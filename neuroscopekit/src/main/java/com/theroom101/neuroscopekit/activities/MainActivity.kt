@@ -12,11 +12,12 @@ class MainActivity : BaseActivity() {
 
     private val menu = Menu.Builder().apply {
         items.add(ScreenMenuItem("Widgets", WidgetsActivity::class))
+        items.add(ScreenMenuItem("Math", MathActivity::class))
     }.build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.kit_a_main)
 
         findViewById<FrameLayout>(R.id.container)?.let { container ->
             val menuView = MenuView(this@MainActivity)

@@ -5,13 +5,20 @@ import android.graphics.Canvas
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.graphics.RectF
+import android.graphics.drawable.VectorDrawable
+import android.view.View
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.theroom101.core.android.dpF
+import com.theroom101.core.math.gaussProb
 import com.theroom101.ui.R
 
+/**
+ * Highlights central item
+ */
 internal class CarouselMainItemDecoration(
         context: Context
-): RecyclerView.ItemDecoration() {
+) : RecyclerView.ItemDecoration() {
 
     private val angles = listOf(
             -10f,
@@ -65,15 +72,29 @@ internal class CarouselMainItemDecoration(
     }
 }
 
+/**
+ * Setting alpha to items according its position
+ */
+internal class CarouselAlphaDecoration : RecyclerView.ItemDecoration() {
 
-class CarouselAlphaDecoration: RecyclerView.ItemDecoration() {
+    private val variance = 56000f
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
 
+        for (i in 0 .. parent.childCount) {
+            val child = parent.getChildAt(i) as? ImageView ?: continue
+            val drawable = child.drawable as VectorDrawable
 
+            val p = calcAlphaForChild(child, (parent.width - SunSignCarousel.ITEM_WIDTH) / 2f)
+
+            drawable.alpha = (p * 255).toInt()
+        }
     }
 
+    private fun calcAlphaForChild(child: View, cx: Float): Double {
+        val p = gaussProb(child.left.toFloat(), cx, variance)
 
+        return p
+    }
 }
-

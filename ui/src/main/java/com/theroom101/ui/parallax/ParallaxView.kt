@@ -9,9 +9,9 @@ import android.view.Choreographer
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.theroom101.core.android.dp
-import com.theroom101.core.physics.Vector
-import com.theroom101.core.physics.createArea
-import com.theroom101.core.physics.randomPoint
+import com.theroom101.core.math.Vector
+import com.theroom101.core.math.createArea
+import com.theroom101.core.math.randomPoint
 import com.theroom101.ui.R
 import com.theroom101.ui.parallax.sensor.Gravitometer
 import com.theroom101.ui.parallax.vm.LayerViewModel
