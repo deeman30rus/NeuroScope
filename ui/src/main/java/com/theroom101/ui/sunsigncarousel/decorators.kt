@@ -1,12 +1,16 @@
 package com.theroom101.ui.sunsigncarousel
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.VectorDrawable
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.theroom101.core.android.dpF
+import com.theroom101.core.android.spF
+import com.theroom101.core.domain.SunSign
 import com.theroom101.core.math.arc
 import com.theroom101.core.math.gaussProb
 import com.theroom101.ui.R

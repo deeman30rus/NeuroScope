@@ -27,7 +27,7 @@ private val SunSign.icon: Int
         SunSign.Leo -> R.drawable.ui_leo_icon
         SunSign.Virgo -> R.drawable.ui_virgo_icon
         SunSign.Libra -> R.drawable.ui_libra_icon
-        SunSign.Scropio -> R.drawable.ui_scorpio_icon
+        SunSign.Scorpio -> R.drawable.ui_scorpio_icon
         SunSign.Ophiuchus -> R.drawable.ui_ophiuchus_icon
         SunSign.Sagittarius -> R.drawable.ui_sagittarius_icon
     }

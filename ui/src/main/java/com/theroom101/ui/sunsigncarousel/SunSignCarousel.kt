@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.theroom101.core.android.dp
+import com.theroom101.core.domain.SunSign
 import com.theroom101.ui.INF
 
 private val metrics = Resources.getSystem().displayMetrics

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_carousel_capricorn_badge">Capricorn</string>
+    <string name="ui_carousel_capricorn_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_aquarius_badge">Aquarius</string>
+    <string name="ui_carousel_aquarius_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_pisces_badge">Pisces</string>
+    <string name="ui_carousel_pisces_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_aries_badge">Aries</string>
+    <string name="ui_carousel_aries_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_taurus_badge">Taurus</string>
+    <string name="ui_carousel_taurus_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_gemini_badge">Gemini</string>
+    <string name="ui_carousel_gemini_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_cancer_badge">Cancer</string>
+    <string name="ui_carousel_cancer_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_leo_badge">Leo</string>
+    <string name="ui_carousel_leo_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_virgo_badge">Virgo</string>
+    <string name="ui_carousel_virgo_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_libra_badge">Libra</string>
+    <string name="ui_carousel_libra_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_scorpio_badge">Scorpio</string>
+    <string name="ui_carousel_scorpio_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_ophiuchus_badge">Ophiuchus</string>
+    <string name="ui_carousel_ophiuchus_info">Sep 16 - Nov 20</string>
+
+    <string name="ui_carousel_sagittarius_badge">Sagittarius</string>
+    <string name="ui_carousel_sagittarius_info">Sep 16 - Nov 20</string>
+</resources>

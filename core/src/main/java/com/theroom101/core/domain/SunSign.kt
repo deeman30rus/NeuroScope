@@ -11,7 +11,7 @@ enum class SunSign {
     Leo,
     Virgo,
     Libra,
-    Scropio,
+    Scorpio,
     Ophiuchus,
     Sagittarius
 }
