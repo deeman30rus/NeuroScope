@@ -11,22 +11,34 @@ import androidx.core.content.res.ResourcesCompat
 import com.theroom101.core.android.dp
 import com.theroom101.core.android.spF
 import com.theroom101.core.domain.SunSign
-import com.theroom101.core.log.DebugLog
+import com.theroom101.core.math.floor
 import com.theroom101.ui.R
+import kotlin.math.abs
+import kotlin.math.sign
 
 private val nameTextSize = spF(20)
 private val infoTextSize = spF(14)
 
-private val logger = DebugLog.default
-
 /**
- * View to show sun sign name and shor info, support sunsign change animation
+ * View to show sun sign name and short info, support sunsign change animation
  */
 class SunSignBadgeView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
+
+    private sealed class State {
+        class Idle(val sunSign: SunSign) : State()
+
+        class Transition(
+            val from: SunSign,
+            val to: SunSign,
+            val progress: Float
+        ): State()
+    }
+
+    private val renderer = Renderer()
 
     private val leftPadding = dp(2)
     private val rightPadding = dp(2)
@@ -58,7 +70,22 @@ class SunSignBadgeView @JvmOverloads constructor(
             topPadding + infoTextSize.toInt() + textMargin + nameTextSize.toInt() + botPadding
     )
 
-    var sunSign: SunSign = SunSign.Sagittarius
+    fun setSunSign(sunSign: SunSign) {
+        state = State.Idle(sunSign)
+    }
+
+    fun translate(from: SunSign, to: SunSign, progress: Float) {
+        state = State.Transition(from, to, progress)
+    }
+
+
+    private var state: State = State.Idle(SunSign.Sagittarius)
+        set(value) {
+            if (field == value) return
+
+            field = value
+            invalidate()
+        }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthMs = MeasureSpec.makeMeasureSpec(bounds.width(), MeasureSpec.AT_MOST)
@@ -70,11 +97,9 @@ class SunSignBadgeView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val name = resources.getSunSignName(sunSign)
-        val info = resources.getSunSignInfo(sunSign)
+        renderer.render(canvas, state)
 
-        drawName(canvas, name)
-        drawInfo(canvas, info)
+
     }
 
     private fun calcWidth(): Int {
@@ -83,108 +108,121 @@ class SunSignBadgeView @JvmOverloads constructor(
         }.toInt() + leftPadding + rightPadding
     }
 
-    private fun drawName(canvas: Canvas, name: String) {
-        val y = topPadding.toFloat() + infoTextSize + textMargin + nameTextSize
 
-        drawText(canvas, name, y, namePaint)
+    private inner class Renderer {
+
+        private val progressThreshold = 0.75f // in percents
+        private val multiplier = 1f / progressThreshold
+
+        private val nameShift = nameTextSize
+        private val infoShift = topPadding.toFloat() + infoTextSize
+
+
+        fun render(canvas: Canvas, state: State) = when(state) {
+            is State.Idle -> renderIdleState(canvas, state.sunSign)
+            is State.Transition -> renderTransitionState(canvas, state.from, state.to, state.progress)
+        }
+
+        private fun renderIdleState(canvas: Canvas, sunSign: SunSign) {
+            val name = resources.getSunSignName(sunSign)
+            val info = resources.getSunSignInfo(sunSign)
+
+            val nameY = topPadding.toFloat() + infoTextSize + textMargin + nameTextSize
+            val infoY = topPadding.toFloat() + infoTextSize
+
+            infoPaint.alpha = 255
+            namePaint.alpha = 255
+
+            drawText(canvas, name, nameY, namePaint)
+            drawText(canvas, info, infoY, infoPaint)
+        }
+
+        private fun renderTransitionState(canvas: Canvas, from: SunSign, to: SunSign, progress: Float) {
+            drawFrom(canvas, from, progress)
+            drawTo(canvas, to, progress)
+        }
+
+        private fun drawFrom(canvas: Canvas, fromSign: SunSign, progress: Float) {
+            if (abs(progress) >= progressThreshold) return
+
+            val name = resources.getSunSignName(fromSign)
+            val info = resources.getSunSignInfo(fromSign)
+
+            val k = progress * multiplier
+
+            val infoY = topPadding.toFloat() + infoTextSize + infoShift * k
+            val nameY = topPadding.toFloat() + infoTextSize + textMargin + nameTextSize + nameShift * k
+
+            val alpha = floor((1f - abs(progress) * multiplier) * 255)
+
+            infoPaint.alpha = alpha
+            namePaint.alpha = alpha
+
+            drawText(canvas, name, nameY, namePaint)
+            drawText(canvas, info, infoY, infoPaint)
+        }
+
+        private fun drawTo(canvas: Canvas, sunSign: SunSign, progress: Float) {
+            if (abs(progress) < 1 - progressThreshold) return
+
+            val bias = abs(progress) - (1 - progressThreshold)
+
+            val name = resources.getSunSignName(sunSign)
+            val info = resources.getSunSignInfo(sunSign)
+
+            val k = (1 - bias) * multiplier
+
+            val infoY = topPadding.toFloat() + infoTextSize - sign(progress) * infoShift * k
+            val nameY = topPadding.toFloat() + infoTextSize + textMargin + nameTextSize - sign(progress) * nameShift * k
+
+            val alpha = floor((abs(bias) * multiplier) * 255)
+
+            infoPaint.alpha = alpha
+            namePaint.alpha = alpha
+
+            drawText(canvas, name, nameY, namePaint)
+            drawText(canvas, info, infoY, infoPaint)
+        }
+
+        private fun drawText(canvas: Canvas, text: String, y: Float, paint: Paint) {
+            val textWidth = paint.measureText(text)
+
+            val x = (bounds.width() - textWidth) / 2
+
+            canvas.drawText(text, x, y, paint)
+        }
+
     }
-
-    private fun drawInfo(canvas: Canvas, info: String) {
-        val y = topPadding.toFloat() + infoTextSize
-
-        drawText(canvas, info, y, infoPaint)
-    }
-
-    private fun drawText(canvas: Canvas, text: String, y: Float, paint: Paint) {
-        val textWidth = paint.measureText(text)
-
-        val x = (bounds.width() - textWidth) / 2
-
-        canvas.drawText(text, x, y, paint)
-    }
-
-    private fun Resources.getSunSignName(sunSign: SunSign) = getString(when (sunSign) {
-        SunSign.Capricorn -> {
-            R.string.ui_carousel_capricorn_badge
-        }
-        SunSign.Aquarius -> {
-            R.string.ui_carousel_aquarius_badge
-        }
-        SunSign.Pisces -> {
-            R.string.ui_carousel_pisces_badge
-        }
-        SunSign.Aries -> {
-            R.string.ui_carousel_aries_badge
-        }
-        SunSign.Taurus -> {
-            R.string.ui_carousel_taurus_badge
-        }
-        SunSign.Gemini -> {
-            R.string.ui_carousel_gemini_badge
-        }
-        SunSign.Cancer -> {
-            R.string.ui_carousel_cancer_badge
-        }
-        SunSign.Leo -> {
-            R.string.ui_carousel_leo_badge
-        }
-        SunSign.Virgo -> {
-            R.string.ui_carousel_virgo_badge
-        }
-        SunSign.Libra -> {
-            R.string.ui_carousel_libra_badge
-        }
-        SunSign.Scorpio -> {
-            R.string.ui_carousel_scorpio_badge
-        }
-        SunSign.Ophiuchus -> {
-            R.string.ui_carousel_ophiuchus_badge
-        }
-        SunSign.Sagittarius -> {
-            R.string.ui_carousel_sagittarius_badge
-        }
-    })
-
-    private fun Resources.getSunSignInfo(sunSign: SunSign) = getString(when (sunSign) {
-        SunSign.Capricorn -> {
-            R.string.ui_carousel_capricorn_info
-        }
-        SunSign.Aquarius -> {
-            R.string.ui_carousel_aquarius_info
-        }
-        SunSign.Pisces -> {
-            R.string.ui_carousel_pisces_info
-        }
-        SunSign.Aries -> {
-            R.string.ui_carousel_aries_info
-        }
-        SunSign.Taurus -> {
-            R.string.ui_carousel_taurus_info
-        }
-        SunSign.Gemini -> {
-            R.string.ui_carousel_gemini_info
-        }
-        SunSign.Cancer -> {
-            R.string.ui_carousel_cancer_info
-        }
-        SunSign.Leo -> {
-            R.string.ui_carousel_leo_info
-        }
-        SunSign.Virgo -> {
-            R.string.ui_carousel_virgo_info
-        }
-        SunSign.Libra -> {
-            R.string.ui_carousel_libra_info
-        }
-        SunSign.Scorpio -> {
-            R.string.ui_carousel_scorpio_info
-        }
-        SunSign.Ophiuchus -> {
-            R.string.ui_carousel_ophiuchus_info
-        }
-        SunSign.Sagittarius -> {
-            R.string.ui_carousel_sagittarius_info
-        }
-    })
-
 }
+
+private fun Resources.getSunSignName(sunSign: SunSign) = getString(when (sunSign) {
+    SunSign.Capricorn -> R.string.ui_carousel_capricorn_badge
+    SunSign.Aquarius -> R.string.ui_carousel_aquarius_badge
+    SunSign.Pisces -> R.string.ui_carousel_pisces_badge
+    SunSign.Aries -> R.string.ui_carousel_aries_badge
+    SunSign.Taurus -> R.string.ui_carousel_taurus_badge
+    SunSign.Gemini -> R.string.ui_carousel_gemini_badge
+    SunSign.Cancer -> R.string.ui_carousel_cancer_badge
+    SunSign.Leo -> R.string.ui_carousel_leo_badge
+    SunSign.Virgo -> R.string.ui_carousel_virgo_badge
+    SunSign.Libra -> R.string.ui_carousel_libra_badge
+    SunSign.Scorpio -> R.string.ui_carousel_scorpio_badge
+    SunSign.Ophiuchus -> R.string.ui_carousel_ophiuchus_badge
+    SunSign.Sagittarius -> R.string.ui_carousel_sagittarius_badge
+})
+
+private fun Resources.getSunSignInfo(sunSign: SunSign) = getString(when (sunSign) {
+    SunSign.Capricorn -> R.string.ui_carousel_capricorn_info
+    SunSign.Aquarius -> R.string.ui_carousel_aquarius_info
+    SunSign.Pisces -> R.string.ui_carousel_pisces_info
+    SunSign.Aries -> R.string.ui_carousel_aries_info
+    SunSign.Taurus -> R.string.ui_carousel_taurus_info
+    SunSign.Gemini -> R.string.ui_carousel_gemini_info
+    SunSign.Cancer -> R.string.ui_carousel_cancer_info
+    SunSign.Leo -> R.string.ui_carousel_leo_info
+    SunSign.Virgo -> R.string.ui_carousel_virgo_info
+    SunSign.Libra -> R.string.ui_carousel_libra_info
+    SunSign.Scorpio -> R.string.ui_carousel_scorpio_info
+    SunSign.Ophiuchus -> R.string.ui_carousel_ophiuchus_info
+    SunSign.Sagittarius -> R.string.ui_carousel_sagittarius_info
+})
