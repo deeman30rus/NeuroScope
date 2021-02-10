@@ -78,7 +78,6 @@ class SunSignBadgeView @JvmOverloads constructor(
         state = State.Transition(from, to, progress)
     }
 
-
     private var state: State = State.Idle(SunSign.Sagittarius)
         set(value) {
             if (field == value) return
@@ -114,6 +113,8 @@ class SunSignBadgeView @JvmOverloads constructor(
         private val nameShift = nameTextSize
         private val infoShift = topPadding.toFloat() + infoTextSize
 
+        private val infoBaseY = topPadding.toFloat() + infoTextSize
+        private val nameBaseY = topPadding.toFloat() + infoTextSize + textMargin + nameTextSize
 
         fun render(canvas: Canvas, state: State) = when(state) {
             is State.Idle -> renderIdleState(canvas, state.sunSign)
@@ -147,8 +148,8 @@ class SunSignBadgeView @JvmOverloads constructor(
 
             val k = progress * multiplier
 
-            val infoY = topPadding.toFloat() + infoTextSize + infoShift * k
-            val nameY = topPadding.toFloat() + infoTextSize + textMargin + nameTextSize + nameShift * k
+            val infoY = infoBaseY + infoShift * k
+            val nameY = nameBaseY + nameShift * k
 
             val alpha = floor((1f - abs(progress) * multiplier) * 255)
 
@@ -167,10 +168,10 @@ class SunSignBadgeView @JvmOverloads constructor(
             val name = resources.getSunSignName(sunSign)
             val info = resources.getSunSignInfo(sunSign)
 
-            val k = (1 - bias) * multiplier
+            val k = (1 - bias * multiplier)
 
-            val infoY = topPadding.toFloat() + infoTextSize - sign(progress) * infoShift * k
-            val nameY = topPadding.toFloat() + infoTextSize + textMargin + nameTextSize - sign(progress) * nameShift * k
+            val infoY = infoBaseY - sign(progress) * infoShift * k
+            val nameY = nameBaseY - sign(progress) * nameShift * k
 
             val alpha = floor((abs(bias) * multiplier) * 255)
 
