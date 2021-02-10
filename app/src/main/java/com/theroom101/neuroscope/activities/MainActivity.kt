@@ -26,6 +26,6 @@ class MainActivity : BaseActivity() {
 
         val viewController = ForecastViewController(forecastView)
 
-        carousel.addOnScrollListener(SunSignBadgeViewController(badgeView))
+        carousel.addOnScrollListener(SunSignBadgeViewController(badgeView, carousel.sunSign))
     }
 }

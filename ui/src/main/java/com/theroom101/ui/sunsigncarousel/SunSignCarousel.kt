@@ -22,9 +22,7 @@ class SunSignCarousel @JvmOverloads constructor(
 
     interface OnScrollListener {
 
-        fun onSunSignChanged(newSunSign: SunSign)
-
-        fun onSunSignChanging(from: SunSign, to: SunSign, percent: Float)
+        fun onScroll(cur: SunSign, shift: Float)
     }
 
     private val scrollListeners = mutableListOf<OnScrollListener>()
@@ -36,8 +34,10 @@ class SunSignCarousel @JvmOverloads constructor(
     var radius = 1000 // вычислено эмпирически, см. NeuroscopeKit -> Math -> Arc
         private set
 
-    var sign: SunSign = SunSign.Sagittarius
-        private set
+    val sunSign: SunSign
+        get() {
+            return SunSign.values()[(snapPosition + 2) % SunSign.values().size]
+        }
 
     private var snapPosition: Int = INF / 2
 
@@ -63,15 +63,9 @@ class SunSignCarousel @JvmOverloads constructor(
         scrollListeners.remove(listener)
     }
 
-    private fun notifyListenersOnSnapChanged(sunSign: SunSign) {
+    private fun notifyListenersOnScrolling(progress: Float) {
         for (listener in scrollListeners) {
-            listener.onSunSignChanged(sunSign)
-        }
-    }
-
-    private fun notifyListenersOnScrolling(from: SunSign, to: SunSign, progress: Float) {
-        for (listener in scrollListeners) {
-            listener.onSunSignChanging(from, to, progress)
+            listener.onScroll(sunSign, progress)
         }
     }
 
@@ -85,49 +79,17 @@ class SunSignCarousel @JvmOverloads constructor(
             handleScrolling(dx)
         }
 
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-
-            if (newState == SCROLL_STATE_IDLE) {
-                accumulator = 0
-
-                handleScrollStopped()
-            }
-        }
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) = Unit
 
         private fun handleScrolling(dx: Int) {
             accumulator += dx
 
             if (abs(accumulator) >= ITEM_WIDTH) {
-                accumulator = sign(accumulator) * (abs(accumulator) - ITEM_WIDTH)
-                snapPosition += sign(dx)
+                snapPosition += sign(accumulator)
+                accumulator -= sign(accumulator) * ITEM_WIDTH
             }
 
-            val cur = snapPosition
-            val next = cur + sign(dx)
-
-            val progress = accumulator.toFloat() / ITEM_WIDTH
-
-            notifyListenersOnScrolling(
-                    from = SunSign.values()[cur % SunSign.values().size],
-                    to = SunSign.values()[next % SunSign.values().size],
-                    progress = progress
-            )
-        }
-
-        private fun handleScrollStopped() {
-            accumulator = 0
-
-            snapPosition = snapHelper.getSnapPosition(this@SunSignCarousel)
-            val sunSign = SunSign.values()[snapPosition % SunSign.values().size]
-
-            notifyListenersOnSnapChanged(sunSign)
-        }
-
-        private fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
-            val layoutManager = recyclerView.layoutManager ?: return NO_POSITION
-            val snapView = findSnapView(layoutManager) ?: return NO_POSITION
-            return layoutManager.getPosition(snapView)
+            notifyListenersOnScrolling(accumulator.toFloat() / ITEM_WIDTH)
         }
     }
 

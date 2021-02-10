@@ -46,18 +46,18 @@ class SunSignBadgeView @JvmOverloads constructor(
     private val topPadding = dp(6)
     private val textMargin = dp(6)
     private val botPadding = dp(6)
-
-    private val gilroy = ResourcesCompat.getFont(context, R.font.gilroy_medium)
+    private val gilroyMed = ResourcesCompat.getFont(context, R.font.gilroy_medium)
+    private val gilroyBold = ResourcesCompat.getFont(context, R.font.gilroy_bold)
 
     private val namePaint = Paint().apply {
-        typeface = gilroy
+        typeface = gilroyBold
         color = resources.getColor(R.color.ui_sunsign_badge_name_color)
         style = Paint.Style.FILL_AND_STROKE
         textSize = nameTextSize
     }
 
     private val infoPaint = Paint().apply {
-        typeface = gilroy
+        typeface = gilroyMed
         color = resources.getColor(R.color.ui_sunsign_badge_info_color)
         style = Paint.Style.FILL_AND_STROKE
         textSize = infoTextSize
@@ -98,8 +98,6 @@ class SunSignBadgeView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         renderer.render(canvas, state)
-
-
     }
 
     private fun calcWidth(): Int {
@@ -107,7 +105,6 @@ class SunSignBadgeView @JvmOverloads constructor(
             infoPaint.measureText(resources.getSunSignInfo(it))
         }.toInt() + leftPadding + rightPadding
     }
-
 
     private inner class Renderer {
 
@@ -130,7 +127,7 @@ class SunSignBadgeView @JvmOverloads constructor(
             val nameY = topPadding.toFloat() + infoTextSize + textMargin + nameTextSize
             val infoY = topPadding.toFloat() + infoTextSize
 
-            infoPaint.alpha = 255
+            infoPaint.alpha = 128
             namePaint.alpha = 255
 
             drawText(canvas, name, nameY, namePaint)
@@ -155,7 +152,7 @@ class SunSignBadgeView @JvmOverloads constructor(
 
             val alpha = floor((1f - abs(progress) * multiplier) * 255)
 
-            infoPaint.alpha = alpha
+            infoPaint.alpha = alpha / 2
             namePaint.alpha = alpha
 
             drawText(canvas, name, nameY, namePaint)
@@ -177,7 +174,7 @@ class SunSignBadgeView @JvmOverloads constructor(
 
             val alpha = floor((abs(bias) * multiplier) * 255)
 
-            infoPaint.alpha = alpha
+            infoPaint.alpha = alpha / 2
             namePaint.alpha = alpha
 
             drawText(canvas, name, nameY, namePaint)

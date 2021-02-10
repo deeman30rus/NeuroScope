@@ -5,14 +5,16 @@ import com.theroom101.ui.sunsignbadge.SunSignBadgeView
 import com.theroom101.ui.sunsigncarousel.SunSignCarousel
 
 class SunSignBadgeViewController(
-    val badgeView: SunSignBadgeView
-): SunSignCarousel.OnScrollListener {
+        private val badgeView: SunSignBadgeView,
+        startSign: SunSign
+) : SunSignCarousel.OnScrollListener {
 
-    override fun onSunSignChanged(newSunSign: SunSign) {
-        badgeView.setSunSign(newSunSign)
+    init {
+        badgeView.setSunSign(startSign)
     }
 
-    override fun onSunSignChanging(from: SunSign, to: SunSign, percent: Float) {
-        badgeView.translate(from, to, percent)
+    override fun onScroll(cur: SunSign, shift: Float) {
+        val to = if (shift >= 0) cur.next() else cur.prev()
+        badgeView.translate(cur, to, shift)
     }
 }
