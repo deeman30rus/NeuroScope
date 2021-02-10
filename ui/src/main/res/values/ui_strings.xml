@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_carousel_capricorn_badge">Козерог</string>
+    <string name="ui_carousel_capricorn_info">Янв 21 - Фев 15</string>
+
+    <string name="ui_carousel_aquarius_badge">Водолей</string>
+    <string name="ui_carousel_aquarius_info">Фев 16 - Март 11</string>
+
+    <string name="ui_carousel_pisces_badge">Рыбы</string>
+    <string name="ui_carousel_pisces_info">Мар 12 - Апр 18</string>
+
+    <string name="ui_carousel_aries_badge">Овен</string>
+    <string name="ui_carousel_aries_info">Апр 19 - Май 13</string>
+
+    <string name="ui_carousel_taurus_badge">Телец</string>
+    <string name="ui_carousel_taurus_info">Май 14 - Июн 20</string>
+
+    <string name="ui_carousel_gemini_badge">Близнецы</string>
+    <string name="ui_carousel_gemini_info">Июн 21 - Июл 19</string>
+
+    <string name="ui_carousel_cancer_badge">Рак</string>
+    <string name="ui_carousel_cancer_info">Июл 20 - Авг 9</string>
+
+    <string name="ui_carousel_leo_badge">Лев</string>
+    <string name="ui_carousel_leo_info">Авг 10 - Сен 15</string>
+
+    <string name="ui_carousel_virgo_badge">Дева</string>
+    <string name="ui_carousel_virgo_info">Сен 16 - Окт 30</string>
+
+    <string name="ui_carousel_libra_badge">Весы</string>
+    <string name="ui_carousel_libra_info">Окт 31 - Ноя 23</string>
+
+    <string name="ui_carousel_scorpio_badge">Скорпион</string>
+    <string name="ui_carousel_scorpio_info">Ноя 24 - Ноя 29</string>
+
+    <string name="ui_carousel_ophiuchus_badge">Змееносец</string>
+    <string name="ui_carousel_ophiuchus_info">Ноя 30 - Дек 17</string>
+
+    <string name="ui_carousel_sagittarius_badge">Стрелец</string>
+    <string name="ui_carousel_sagittarius_info">Дек 18 - Янв 20</string>
+</resources>

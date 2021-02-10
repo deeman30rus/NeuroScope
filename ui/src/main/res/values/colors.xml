@@ -3,4 +3,7 @@
     <color name="ui_forecast_view_start_color">@color/core_black_russian_0</color>
     <color name="ui_forecast_view_finish_color">@color/core_black_russian_50</color>
 
+    <color name="ui_sunsign_badge_name_color">@color/core_white</color>
+    <color name="ui_sunsign_badge_info_color">@color/core_white50</color>
+
 </resources>

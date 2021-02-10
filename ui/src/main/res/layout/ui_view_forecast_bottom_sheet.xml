@@ -7,8 +7,14 @@
     android:orientation="vertical"
     android:background="@android:color/transparent"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="150dp"
+    app:behavior_peekHeight="196dp"
     app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <com.theroom101.ui.sunsignbadge.SunSignBadgeView
+        android:id="@+id/sunsign_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
 
     <com.theroom101.ui.sunsigncarousel.SunSignCarousel
         android:id="@+id/sunsign_carousel"
