@@ -21,6 +21,17 @@ fun sign(num: Int): Int {
     }
 }
 
+/**
+ * Same as [kotlin.math.sign] but returns [Int] value
+ */
+fun sign(num: Float): Int {
+    return when {
+        num < 0 -> -1
+        num > 0 -> 1
+        else -> 0
+    }
+}
+
 // todo move functions below to ui module
 
 /**

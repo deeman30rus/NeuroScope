@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 private const val INC = 0.005f
 
 private const val LOW_THRESHOLD = INC * 1.1f
-private const val HIGHT_THRESHOLD = 1 - INC * 1.1f
+private const val HIGH_THRESHOLD = 1 - INC * 1.1f
 
 internal class Star(
     val drawable: Drawable,
@@ -31,7 +31,7 @@ internal class Star(
     fun shine() {
         alpha += INC
 
-        if (alpha > HIGHT_THRESHOLD) {
+        if (alpha > HIGH_THRESHOLD) {
             dim = true
         }
     }
