@@ -88,10 +88,12 @@ private class Renderer(context: Context) {
         val shift = state.shift
 
         val left = ((bounds.width() - current.width) / 2 - shift * bounds.width()).toInt()
-        val nextLeft = left + bounds.width() * sign(shift)
-
         drawConstellation(canvas, current, left, topPadding)
-        drawConstellation(canvas, next, nextLeft, topPadding)
+
+        if (shift != 0f) {
+            val nextLeft = left + bounds.width() * sign(shift)
+            drawConstellation(canvas, next, nextLeft, topPadding)
+        }
     }
 
     private fun drawConstellation(canvas: Canvas, constellation: Constellation, left: Int, top: Int) {
