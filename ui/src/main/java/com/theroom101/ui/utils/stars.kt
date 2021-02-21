@@ -13,10 +13,10 @@ internal enum class StarSize(
     private val min: Int,
     private val max: Int
 ) {
-    Small(dp(4), dp(7)),
-    Medium(dp(7), dp(10)),
-    Large(dp(10), dp(13)),
-    ExtraLarge(dp(13), dp(16));
+    Small(dp(7), dp(11)),
+    Medium(dp(12), dp(18)),
+    Large(dp(19), dp(26)),
+    ExtraLarge(dp(27), dp(32));
 
     fun size() = Random.nextInt(min .. max)
 
@@ -28,9 +28,9 @@ internal enum class StarSize(
 
 internal enum class StarType(@DrawableRes val drawableId: Int) {
 
-    Oval(R.drawable.ui_star1),
-    Star1(R.drawable.ui_star2),
-    Star2(R.drawable.ui_star3);
+    Star1(R.drawable.ui_star_type_1),
+    Star2(R.drawable.ui_star_type_2),
+    Constellation(R.drawable.ui_star_constellation);
 
     fun getDrawable(context: Context): Drawable {
         return ContextCompat.getDrawable(context, drawableId) ?: error("Drawable not for $drawableId not found")
