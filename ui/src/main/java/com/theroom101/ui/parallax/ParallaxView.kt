@@ -3,12 +3,10 @@ package com.theroom101.ui.parallax
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Point
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.Choreographer
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.theroom101.core.android.dp
 import com.theroom101.core.math.Vector
 import com.theroom101.core.math.createArea
 import com.theroom101.core.math.randomPoint
@@ -16,14 +14,13 @@ import com.theroom101.ui.R
 import com.theroom101.ui.parallax.sensor.Gravitometer
 import com.theroom101.ui.parallax.vm.LayerViewModel
 import com.theroom101.ui.parallax.vm.Star
-import com.theroom101.ui.utils.starDrawable
-import com.theroom101.ui.utils.starSize
+import com.theroom101.ui.utils.StarSize
+import com.theroom101.ui.utils.StarType
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.plus
 import kotlin.random.Random
-import kotlin.random.nextInt
 
 private const val LAYER_1_AREA = 1.08f
 private const val LAYER_2_AREA = 1.16f
@@ -153,16 +150,6 @@ private class Layer private constructor(
             height: Int,
             description: Description
         ): Layer {
-            fun starType(v: Float, distribution: List<Float>): Int {
-                var sum = 0f
-                for (i in distribution.indices) {
-                    sum += distribution[i]
-
-                    if (v <= sum) return i
-                }
-
-                error("bad distribution")
-            }
 
             val center = Point(width / 2, height / 2)
 
@@ -178,12 +165,12 @@ private class Layer private constructor(
             ) {
                 (1..description.maxStars).map {
                     val r = Random.nextFloat()
-                    val type = starType(r, description.starsDistribution)
+                    val type = StarType.randomInDistribution(r, description.starsDistribution)
 
                     Star(
-                        drawable = context.starDrawable(type).mutate(),
+                        drawable = type.getDrawable(context).mutate(),
                         coordinates = layerArea.randomPoint(),
-                        size = starSize(layerNo),
+                        size = StarSize.fromInt(layerNo).size(),
                         alpha = Random.nextFloat(),
                         active = Random.nextBoolean(),
                         dim = Random.nextBoolean()

@@ -2,6 +2,8 @@ package com.theroom101.ui.parallax.vm
 
 import android.graphics.Point
 import android.graphics.drawable.Drawable
+import com.theroom101.ui.utils.StarSize
+import com.theroom101.ui.utils.StarType
 
 private const val INC = 0.005f
 
@@ -35,4 +37,13 @@ internal class Star(
             dim = true
         }
     }
+
+    class Description(
+        val type: StarType,
+        val coordinates: Point,
+        val size: StarSize,
+        val alpha: Float = 1f,
+        val active: Boolean = false,
+        val dim: Boolean = false
+    )
 }
