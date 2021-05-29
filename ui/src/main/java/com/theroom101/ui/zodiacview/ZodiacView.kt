@@ -3,6 +3,7 @@ package com.theroom101.ui.zodiacview
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import com.theroom101.core.android.dp
@@ -10,24 +11,21 @@ import com.theroom101.core.android.dpF
 import com.theroom101.core.domain.SunSign
 import com.theroom101.core.math.sign
 import com.theroom101.ui.R
-import com.theroom101.ui.parallax.vm.Star
+import com.theroom101.ui.models.StarDrawableFactory
+import com.theroom101.ui.models.StarModel
 import kotlin.math.min
 
 /**
  * View to show transition on constellations on a background
  */
 class ZodiacView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private val renderer = Renderer(context)
     private val state = ViewState()
-
-    private val constellationHolder = ConstellationHolder(context).apply {
-        warmUp()
-    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -43,8 +41,8 @@ class ZodiacView @JvmOverloads constructor(
 
     fun translate(from: SunSign, progress: Float) {
         with(state) {
-            current = constellationHolder[from]
-            next = if (progress > 0) constellationHolder[from.next()] else constellationHolder[from.prev()]
+            current = Constellations[from]
+            next = if (progress > 0) Constellations[from.next()] else Constellations[from.prev()]
             shift = progress
         }
 
@@ -52,7 +50,7 @@ class ZodiacView @JvmOverloads constructor(
     }
 
     fun setSunSign(sign: SunSign) {
-        state.current = constellationHolder[sign]
+        state.current = Constellations[sign]
 
         invalidate()
     }
@@ -65,6 +63,12 @@ class ZodiacView @JvmOverloads constructor(
 }
 
 private class Renderer(context: Context) {
+
+    private val starDrawableFactory = StarDrawableFactory(context.resources)
+    private val stars = Constellations
+        .stars
+        .map { model -> model to starDrawableFactory.createStarDrawable(model) }
+        .toMap()
 
     private var k = 0f
     private var size = 0
@@ -103,8 +107,13 @@ private class Renderer(context: Context) {
         }
     }
 
-    private fun drawConstellation(canvas: Canvas, constellation: Constellation, left: Int, top: Int) {
-        for(star in constellation.stars) {
+    private fun drawConstellation(
+        canvas: Canvas,
+        constellation: Constellation,
+        left: Int,
+        top: Int
+    ) {
+        for (star in constellation.stars) {
             drawStar(canvas, star, left, top)
         }
 
@@ -116,7 +125,7 @@ private class Renderer(context: Context) {
         }
     }
 
-    private fun drawStar(canvas: Canvas, star: Star, left: Int, top: Int) {
+    private fun drawStar(canvas: Canvas, star: StarModel, left: Int, top: Int) {
         val alpha = (255 * star.alpha).toInt()
 
         val bias = star.size / 2
@@ -124,18 +133,20 @@ private class Renderer(context: Context) {
         val x = (star.x * k).toInt()
         val y = (star.y * k).toInt()
 
-        star.drawable.setBounds(
+        val drawable = stars[star] ?: return
+
+        drawable.setBounds(
             x + left - bias,
             y + top - bias,
             x + left + bias,
             y + top + bias
         )
-        star.drawable.alpha = alpha
+        drawable.alpha = alpha
 
-        star.drawable.draw(canvas)
+        drawable.draw(canvas)
     }
 
-    private fun drawEdge(canvas: Canvas, from: Star, to: Star, left: Int, top: Int) {
+    private fun drawEdge(canvas: Canvas, from: StarModel, to: StarModel, left: Int, top: Int) {
         val startX = (from.x * k + left)
         val startY = (from.y * k + top)
         val endX = (to.x * k + left)

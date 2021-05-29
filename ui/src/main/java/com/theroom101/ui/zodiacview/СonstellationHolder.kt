@@ -1,33 +1,37 @@
 package com.theroom101.ui.zodiacview
 
-import android.content.Context
 import android.graphics.Point
 import com.theroom101.core.android.dp
 import com.theroom101.core.domain.SunSign
-import com.theroom101.ui.parallax.vm.Star
+import com.theroom101.ui.models.StarModel
 import com.theroom101.ui.utils.StarSize
 import com.theroom101.ui.utils.StarType
 
-internal class ConstellationHolder(
-    context: Context
-) {
-    private val factory = Constellation.Factory(context)
+internal object Constellations {
+    private val constellations = mapOf(
+        SunSign.Capricorn to capricorn,
+        SunSign.Aquarius to aquarius,
+        SunSign.Pisces to pisces,
+        SunSign.Aries to aries,
+        SunSign.Taurus to taurus,
+        SunSign.Gemini to gemini,
+        SunSign.Cancer to cancer,
+        SunSign.Leo to leo,
+        SunSign.Virgo to virgo,
+        SunSign.Libra to libra,
+        SunSign.Scorpio to scorpio,
+        SunSign.Ophiuchus to ophiuchus,
+        SunSign.Sagittarius to sagittarius,
+    )
 
-    private val constellations = mutableMapOf<SunSign, Constellation>()
-
-    fun warmUp() {
-        for(sunSign in SunSign.values()) get(sunSign)
-    }
+    val stars: List<StarModel> = constellations.flatMap { it.value.stars }.toList()
 
     operator fun get(sunSign: SunSign): Constellation {
-        val description = descriptions[sunSign] ?: error("Unknown constellation for $sunSign")
-        return constellations[sunSign] ?: factory.create(description).also {
-            constellations[sunSign] = it
-        }
+        return constellations[sunSign] ?: error("Unknown constellation for $sunSign")
     }
 }
 
-private val capricorn = Constellation.Description(
+private val capricorn = Constellation(
     stars = listOf(
         star(dp(49), dp(8), StarType.Star1, StarSize.Medium),
         star(dp(51), dp(16), StarType.Star1, StarSize.Large),
@@ -56,7 +60,7 @@ private val capricorn = Constellation.Description(
     )
 )
 
-private val aquarius = Constellation.Description(
+private val aquarius = Constellation(
     stars = listOf(
         star(dp(88), dp(6), StarType.Star1, StarSize.Medium),
         star(dp(59), dp(26), StarType.Star1, StarSize.ExtraLarge),
@@ -87,7 +91,7 @@ private val aquarius = Constellation.Description(
         11 to 12
     )
 )
-private val pisces = Constellation.Description(
+private val pisces = Constellation(
     stars = listOf(
         star(dp(14), dp(90), StarType.Star1, StarSize.Medium),
         star(dp(25), dp(94), StarType.Star1, StarSize.Large),
@@ -128,7 +132,7 @@ private val pisces = Constellation.Description(
     )
 )
 
-private val aries = Constellation.Description(
+private val aries = Constellation(
     stars = listOf(
         star(dp(26), dp(40), StarType.Star1, StarSize.Large),
         star(dp(57), dp(46), StarType.Star1, StarSize.ExtraLarge),
@@ -142,7 +146,7 @@ private val aries = Constellation.Description(
     )
 )
 
-private val taurus = Constellation.Description(
+private val taurus = Constellation(
     stars = listOf(
         star(dp(18), dp(26), StarType.Star1, StarSize.ExtraLarge),
         star(dp(44), dp(49), StarType.Star1, StarSize.Large),
@@ -170,7 +174,7 @@ private val taurus = Constellation.Description(
     )
 )
 
-private val gemini = Constellation.Description(
+private val gemini = Constellation(
     stars = listOf(
         star(dp(20), dp(23), StarType.Star1, StarSize.ExtraLarge),
         star(dp(26), dp(23), StarType.Star1, StarSize.Large),
@@ -202,7 +206,7 @@ private val gemini = Constellation.Description(
         12 to 0
     )
 )
-private val cancer = Constellation.Description(
+private val cancer = Constellation(
     stars = listOf(
         star(dp(31), dp(17), StarType.Star1, StarSize.ExtraLarge),
         star(dp(43), dp(33), StarType.Star1, StarSize.Large),
@@ -218,7 +222,7 @@ private val cancer = Constellation.Description(
     )
 )
 
-private val leo = Constellation.Description(
+private val leo = Constellation(
     stars = listOf(
         star(dp(57), dp(14), StarType.Star1, StarSize.Medium),
         star(dp(48), dp(14), StarType.Star1, StarSize.Large),
@@ -243,7 +247,7 @@ private val leo = Constellation.Description(
     )
 )
 
-private val virgo = Constellation.Description(
+private val virgo = Constellation(
     stars = listOf(
         star(dp(66), dp(7), StarType.Star1, StarSize.Medium),
         star(dp(65), dp(25), StarType.Star1, StarSize.Large),
@@ -276,7 +280,7 @@ private val virgo = Constellation.Description(
     )
 )
 
-private val libra = Constellation.Description(
+private val libra = Constellation(
     stars = listOf(
         star(dp(26), dp(46), StarType.Star1, StarSize.Medium),
         star(dp(35), dp(41), StarType.Star1, StarSize.Large),
@@ -299,7 +303,7 @@ private val libra = Constellation.Description(
     )
 )
 
-private val scorpio = Constellation.Description(
+private val scorpio = Constellation(
     stars = listOf(
         star(dp(16), dp(63), StarType.Star1, StarSize.Medium),
         star(dp(9), dp(70), StarType.Star1, StarSize.Large),
@@ -335,7 +339,7 @@ private val scorpio = Constellation.Description(
     )
 )
 
-private val ophiuchus = Constellation.Description(
+private val ophiuchus = Constellation(
     stars = listOf(
         star(dp(2), dp(25), StarType.Star1, StarSize.Medium),
         star(dp(21), dp(39), StarType.Star1, StarSize.Large),
@@ -374,7 +378,7 @@ private val ophiuchus = Constellation.Description(
     )
 )
 
-private val sagittarius = Constellation.Description(
+private val sagittarius = Constellation(
     stars = listOf(
         star(dp(21), dp(7), StarType.Star1, StarSize.Medium),
         star(dp(33), dp(15), StarType.Star1, StarSize.Medium),
@@ -425,24 +429,10 @@ private val sagittarius = Constellation.Description(
     )
 )
 
-private val descriptions = mapOf(
-    SunSign.Capricorn to capricorn,
-    SunSign.Aquarius to aquarius,
-    SunSign.Pisces to pisces,
-    SunSign.Aries to aries,
-    SunSign.Taurus to taurus,
-    SunSign.Gemini to gemini,
-    SunSign.Cancer to cancer,
-    SunSign.Leo to leo,
-    SunSign.Virgo to virgo,
-    SunSign.Libra to libra,
-    SunSign.Scorpio to scorpio,
-    SunSign.Ophiuchus to ophiuchus,
-    SunSign.Sagittarius to sagittarius,
-)
 
-private fun star(x: Int, y: Int, type: StarType, size: StarSize) = Star.Description(
+
+private fun star(x: Int, y: Int, type: StarType, size: StarSize) = StarModel(
     type,
     Point(x, y),
-    size
+    size.size(),
 )
