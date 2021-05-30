@@ -74,7 +74,7 @@ class ZodiacView @JvmOverloads constructor(
 
 private class Renderer(context: Context) {
 
-    private val starDrawableFactory = StarDrawableFactory(context.resources)
+    private val starDrawableFactory = StarDrawableFactory
     private val stars = Constellations
         .stars
         .map { model -> model to starDrawableFactory.createStarDrawable(model) }

@@ -41,7 +41,7 @@ class ParallaxView @JvmOverloads constructor(
     private val gravitometer = Gravitometer(context, ::updateGravity)
     private val scope = MainScope() + SupervisorJob()
 
-    private val starDrawableFactory = StarDrawableFactory(resources)
+    private val starDrawableFactory = StarDrawableFactory
 
     private val choreographer: Choreographer by lazy { Choreographer.getInstance() }
 

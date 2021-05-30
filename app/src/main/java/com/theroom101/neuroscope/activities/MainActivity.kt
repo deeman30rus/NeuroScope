@@ -6,6 +6,7 @@ import com.theroom101.core.android.BaseActivity
 import com.theroom101.neuroscope.R
 import com.theroom101.neuroscope.ui.ZodiacViewController
 import com.theroom101.ui.forecast.ForecastViewController
+import com.theroom101.ui.models.StarDrawableFactory
 import com.theroom101.ui.sunsignbadge.SunSignBadgeView
 import com.theroom101.ui.sunsigncarousel.SunSignCarousel
 import com.theroom101.ui.zodiacview.ZodiacView
@@ -16,6 +17,7 @@ class MainActivity : BaseActivity() {
     private val badgeView by ViewProperty<SunSignBadgeView>(R.id.sunsign_badge)
     private val zodiacView by ViewProperty<ZodiacView>(R.id.zodiac_view)
     private val carousel by ViewProperty<SunSignCarousel>(R.id.sunsign_carousel)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
