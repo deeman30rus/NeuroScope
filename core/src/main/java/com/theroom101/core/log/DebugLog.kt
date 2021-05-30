@@ -33,11 +33,10 @@ object DebugLog {
         get() = acquire(DEFAULT_TAG)
 
     fun acquire(tag: String): Logger {
-        val logger = loggers[tag] ?: LoggerImpl(tag).also {
+
+        return loggers[tag] ?: LoggerImpl(tag).also {
             loggers[tag] = it
         }
-
-        return logger
     }
 
     fun release(tag: String) {

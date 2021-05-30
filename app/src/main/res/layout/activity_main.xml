@@ -12,8 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.theroom101.ui.zodiacview.ZodiacView
+        android:id="@+id/zodiac_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <!-- // Main content area -->
 
-    <include layout="@layout/ui_view_forecast_bottom_sheet" />
+    <include
+        layout="@layout/ui_view_forecast_bottom_sheet" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

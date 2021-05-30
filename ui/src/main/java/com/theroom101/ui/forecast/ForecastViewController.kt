@@ -10,7 +10,8 @@ import com.theroom101.ui.utils.intermediateColor
 import kotlin.math.abs
 
 class ForecastViewController(
-    forecastView: ViewGroup
+    forecastView: ViewGroup,
+    private val onSlideCallback: (Float) -> Unit
 ) {
 
     private val context = forecastView.context
@@ -56,6 +57,8 @@ class ForecastViewController(
             setBackgroundColor(color)
 
             chevrone.transition = abs(slideOffset)
+
+            onSlideCallback(slideOffset)
         }
     }
 }
