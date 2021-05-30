@@ -79,11 +79,7 @@ class SunSignCarousel @JvmOverloads constructor(
             handleScrolling(dx)
         }
 
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//            if (newState == SCROLL_STATE_IDLE) {
-//                notifyListenersOnScrolling(0f)
-//            }
-        }
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) = Unit
 
         private fun handleScrolling(dx: Int) {
             accumulator += dx
