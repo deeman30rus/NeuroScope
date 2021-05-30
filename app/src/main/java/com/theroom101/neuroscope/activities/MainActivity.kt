@@ -23,7 +23,13 @@ class MainActivity : BaseActivity() {
 
         initProperties()
 
-        val viewController = ForecastViewController(forecastView)
+        val viewController = ForecastViewController(forecastView) { slideOffset ->
+            val progress = if (slideOffset >= 0f) (1f - slideOffset) else (1f + slideOffset)
+
+            zodiacView.scattering = 1 - progress
+            zodiacView.alpha = progress
+        }
+
 
         carousel.addOnScrollListener(ZodiacViewController(badgeView, zodiacView, carousel.sunSign))
     }

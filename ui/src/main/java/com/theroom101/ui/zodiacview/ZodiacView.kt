@@ -3,7 +3,6 @@ package com.theroom101.ui.zodiacview
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import com.theroom101.core.android.dp
@@ -26,6 +25,15 @@ class ZodiacView @JvmOverloads constructor(
 
     private val renderer = Renderer(context)
     private val state = ViewState()
+
+    var scattering: Float
+        get() = state.scattering
+        set(value) {
+            if (state.scattering == value) return
+            state.scattering = value
+
+            invalidate()
+        }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -58,6 +66,8 @@ class ZodiacView @JvmOverloads constructor(
     internal class ViewState {
         lateinit var current: Constellation
         lateinit var next: Constellation
+
+        var scattering = 0f
         var shift = 0f
     }
 }
@@ -88,9 +98,6 @@ private class Renderer(context: Context) {
     fun updateBounds(w: Int, h: Int) {
         width = w
         height = h
-
-        size = (min(w, h) * 0.8f).toInt()
-        k = size / dpF(100)
     }
 
     fun drawFrame(canvas: Canvas, state: ZodiacView.ViewState) {
@@ -98,12 +105,17 @@ private class Renderer(context: Context) {
         val next = state.next
         val shift = state.shift
 
+        size = (min(width, height) * (0.8f + state.scattering)).toInt()
+        k = size / dpF(100)
+
         val left = ((width - size) / 2 - shift * width).toInt()
-        drawConstellation(canvas, current, left, topPadding)
+        val top = topPadding - (dp(200) * state.scattering).toInt()
+
+        drawConstellation(canvas, current, left, top)
 
         if (shift != 0f) {
             val nextLeft = left + width * sign(shift)
-            drawConstellation(canvas, next, nextLeft, topPadding)
+            drawConstellation(canvas, next, nextLeft, top)
         }
     }
 
