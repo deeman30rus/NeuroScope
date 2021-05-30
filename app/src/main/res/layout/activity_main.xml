@@ -19,6 +19,7 @@
 
     <!-- // Main content area -->
 
-    <include layout="@layout/ui_view_forecast_bottom_sheet" />
+    <include
+        layout="@layout/ui_view_forecast_bottom_sheet" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
