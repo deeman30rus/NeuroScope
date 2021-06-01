@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.delizarov.feature_forecast.R
 
-class ForecastView @JvmOverloads constructor(
+class ForecastDetailsView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

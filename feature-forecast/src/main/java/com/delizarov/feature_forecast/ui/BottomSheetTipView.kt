@@ -1,4 +1,4 @@
-package com.theroom101.ui.forecast
+package com.delizarov.feature_forecast.ui
 
 import android.content.Context
 import android.graphics.Canvas

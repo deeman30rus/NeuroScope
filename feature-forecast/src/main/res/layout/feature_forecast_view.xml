@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="300dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.theroom101.ui.selector.SelectorView
         android:id="@+id/period_selector"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:sv_values="@array/feature_forecast_periods" />
+        android:layout_height="wrap_content"
+        app:sv_values="@array/feature_forecast_periods"
+        app:sv_selected="0"
+        />
 
 </LinearLayout>

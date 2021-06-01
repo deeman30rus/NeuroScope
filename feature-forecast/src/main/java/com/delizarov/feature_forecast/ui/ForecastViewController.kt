@@ -1,10 +1,10 @@
-package com.theroom101.ui.forecast
+package com.delizarov.feature_forecast.ui
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
+import com.delizarov.feature_forecast.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.theroom101.ui.R
 import com.theroom101.ui.sunsigncarousel.SunSignCarousel
 import com.theroom101.ui.utils.intermediateColor
 import kotlin.math.abs
@@ -20,10 +20,6 @@ class ForecastViewController(
     private val carousel: SunSignCarousel = forecastView.findViewById(R.id.sunsign_carousel)
     private val background: View = forecastView.findViewById(R.id.background)
     private val chevrone: BottomSheetTipView = forecastView.findViewById(R.id.tip)
-    private val foresightPeriod: View = forecastView.findViewById(R.id.foresight_period)
-    private val planetTags: View = forecastView.findViewById(R.id.planet_tags)
-    private val forecastText: View = forecastView.findViewById(R.id.forecast)
-    private val chart: View = forecastView.findViewById(R.id.chart)
 
     private val behavior: BottomSheetBehavior<ViewGroup> =
         BottomSheetBehavior.from(forecastView).also {

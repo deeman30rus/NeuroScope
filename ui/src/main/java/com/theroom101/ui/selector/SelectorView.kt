@@ -24,8 +24,6 @@ private const val ANIMATION_DURATION = 160L // ms
 
 private const val NOT_SELECTED = -1
 
-private val logger = DebugLog.default
-
 class SelectorView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -87,8 +85,8 @@ class SelectorView @JvmOverloads constructor(
         if (selected == NOT_SELECTED) return
         val item = getChildAt(0)
 
-        val xStart = underline.left
-        val xEnd = underline.right
+        val xStart = if (underline.left == -1) item.left else underline.left
+        val xEnd = if (underline.right == -1) item.right else underline.right
 
         val y = item.bottom + dpF(10)
 
@@ -131,7 +129,6 @@ class SelectorView @JvmOverloads constructor(
     private fun resetAnimation(from: Underline, to: Underline) {
         fun decel(x: Float, h: Int) = (-h * x * (x - 2)).toInt()
         fun accel(x: Float, h: Int) = (h * x * x).toInt()
-
 
         animation?.cancel()
 
