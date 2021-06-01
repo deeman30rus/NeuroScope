@@ -8,7 +8,7 @@
     <com.theroom101.ui.selector.SelectorView
         android:id="@+id/selector_view"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         app:sv_values="@array/kit_selector_view_test_values"
         android:layout_marginTop="100dp"
         app:layout_constraintTop_toTopOf="parent"

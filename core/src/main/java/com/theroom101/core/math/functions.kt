@@ -48,3 +48,10 @@ fun gaussProb(x: Float, ev: Float, variance: Float): Double {
 fun arc(x: Int, x0: Int, r: Int): Int {
     return (-sqrt((r * r - (x - x0) * (x - x0)).toDouble()) + r).toInt()
 }
+
+/**
+ * Maxwell–Boltzmann distribution
+ */
+fun mbDistribution(x: Float, B: Float, beta: Float): Float {
+    return 1f
+}
