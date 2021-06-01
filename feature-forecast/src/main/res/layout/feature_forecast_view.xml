@@ -10,7 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sv_values="@array/feature_forecast_periods"
-        app:sv_selected="0"
-        />
+        app:sv_selected="0" />
+
+    <com.theroom101.ui.tags.IconTagsView
+        android:id="@+id/planet_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"/>
+
+    <TextView
+        android:id="@+id/forecast_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="14sp"
+        android:textColor="@color/core_white50"
+        android:fontFamily="@font/gilroy_regular" />
+
+
 
 </LinearLayout>

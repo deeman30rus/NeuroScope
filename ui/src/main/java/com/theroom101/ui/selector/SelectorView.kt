@@ -174,7 +174,7 @@ class SelectorView @JvmOverloads constructor(
             text = caption
             tag = pos
 
-            typeface = ResourcesCompat.getFont(this@newTextView, R.font.gilroy_medium)
+            typeface = ResourcesCompat.getFont(this@newTextView, R.font.gilroy_regular)
         }
 
     private data class Underline(
