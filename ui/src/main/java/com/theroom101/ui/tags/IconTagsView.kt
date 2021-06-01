@@ -9,7 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.theroom101.core.android.dp
 import com.theroom101.ui.R
 
-class IconTagsView constructor(
+class IconTagsView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

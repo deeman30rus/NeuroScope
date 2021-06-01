@@ -28,6 +28,9 @@
         <activity android:name=".activities.SelectorViewActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".activities.ChartActivity"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".activities.MathActivity" />
 
         <activity android:name=".activities.GaussActivity" />
