@@ -6,4 +6,5 @@
     <color name="ui_sunsign_badge_name_color">@color/core_white</color>
     <color name="ui_sunsign_badge_info_color">@color/core_white50</color>
 
+    <color name="ui_selector_underline_color">@color/core_cornflower_blue</color>
 </resources>

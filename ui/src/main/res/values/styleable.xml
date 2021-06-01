@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SelectorView">
+        <attr name="sv_values" format="reference" />
+        <attr name="sv_selected" format="integer" />
+    </declare-styleable>
+</resources>

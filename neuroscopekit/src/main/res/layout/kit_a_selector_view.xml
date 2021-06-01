@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/core_black_russian"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.theroom101.ui.selector.SelectorView
+        android:id="@+id/selector_view"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:sv_values="@array/kit_selector_view_test_values"
+        android:layout_marginTop="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/selected_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/core_white"
+        android:textSize="12sp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/selector_view"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
