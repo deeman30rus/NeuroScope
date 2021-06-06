@@ -27,6 +27,9 @@
         android:textColor="@color/core_white50"
         android:fontFamily="@font/gilroy_regular" />
 
-
+    <com.theroom101.ui.chart.ChartView
+        android:id="@+id/forecast_impact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

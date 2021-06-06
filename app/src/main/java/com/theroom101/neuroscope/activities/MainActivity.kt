@@ -17,20 +17,35 @@ class MainActivity : BaseActivity() {
     private val zodiacView by ViewProperty<ZodiacView>(R.id.zodiac_view)
     private val carousel by ViewProperty<SunSignCarousel>(R.id.sunsign_carousel)
 
+    private val viewController by lazy {
+        ForecastViewController(forecastView) { slideOffset ->
+            val progress = if (slideOffset >= 0f) (1f - slideOffset) else (1f + slideOffset)
+
+            zodiacView.scattering = 1 - progress
+            zodiacView.alpha = progress
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.app_a_main)
 
         initProperties()
 
-        val viewController = ForecastViewController(forecastView) { slideOffset ->
-            val progress = if (slideOffset >= 0f) (1f - slideOffset) else (1f + slideOffset)
-
-            zodiacView.scattering = 1 - progress
-            zodiacView.alpha = progress
-        }
-
-
         carousel.addOnScrollListener(ZodiacViewController(badgeView, zodiacView, carousel.sunSign))
     }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        viewController.onViewCreated()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        viewController.onViewDestroyed()
+    }
+
 }

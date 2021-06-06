@@ -57,6 +57,11 @@ class SelectorView @JvmOverloads constructor(
 
     private var animation: ValueAnimator? = null
 
+    private val items = mutableListOf<String>()
+
+    val selectedItem: String?
+        get() = if (selected != NOT_SELECTED) items[selected] else null
+
     var onItemClicked: ((String) -> Unit)? = null
 
     init {
@@ -65,6 +70,8 @@ class SelectorView @JvmOverloads constructor(
             val values = a.getTextArray(R.styleable.SelectorView_sv_values)
                 ?.map { it.toString() }
                 ?.toList()?: error("Can't find specified string array")
+
+            items.addAll(values)
 
             for ((i, variant) in values.withIndex()) {
                 addView(
