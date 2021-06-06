@@ -30,6 +30,9 @@ class SelectorView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
+    private val hTextPadding = dp(14)
+    private val vTextPadding = dp(12)
+
     private val textColorSelector = ResourcesCompat.getColorStateList(resources, R.color.selector_view_colors, null)
 
     private val underline = Underline()
@@ -92,10 +95,10 @@ class SelectorView @JvmOverloads constructor(
         if (selected == NOT_SELECTED) return
         val item = getChildAt(0)
 
-        val xStart = if (underline.left == -1) item.left else underline.left
-        val xEnd = if (underline.right == -1) item.right else underline.right
+        val xStart = if (underline.left == -1) item.left + hTextPadding else underline.left
+        val xEnd = if (underline.right == -1) item.right - hTextPadding else underline.right
 
-        val y = item.bottom + dpF(10)
+        val y = item.bottom + dpF(2)
 
         canvas.drawLine(xStart.toFloat() - dpF(2), y, xEnd + dpF(2), y, glowPaint)
         canvas.drawLine(xStart.toFloat(), y, xEnd.toFloat(), y, linePaint)
@@ -118,13 +121,13 @@ class SelectorView @JvmOverloads constructor(
             curSelected.isSelected = false
 
             val from = underline.copy()
-            val to = Underline(tv.left, tv.right)
+            val to = Underline(tv.left + hTextPadding, tv.right - hTextPadding)
 
             resetAnimation(from, to)
         } else {
 
-            underline.left = tv.left
-            underline.right = tv.right
+            underline.left = tv.left + hTextPadding
+            underline.right = tv.right - hTextPadding
         }
 
         tv.isSelected = true
@@ -165,11 +168,10 @@ class SelectorView @JvmOverloads constructor(
         TextView(this).apply {
             layoutParams =
                 LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
-                    leftMargin = dp(14)
-                    rightMargin = dp(14)
-                    topMargin = dp(12)
-                    bottomMargin = dp(12)
+                    bottomMargin = dp(6)
                 }
+
+            setPadding(hTextPadding, vTextPadding, hTextPadding, vTextPadding)
 
             textSize = 14f
             setTextColor(textColorSelector)
