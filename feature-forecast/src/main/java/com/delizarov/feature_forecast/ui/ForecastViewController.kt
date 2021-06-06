@@ -54,22 +54,11 @@ class ForecastViewController(
         presenter.detachView()
     }
 
-    private fun setBackgroundColor(@ColorInt color: Int) {
-        forecastDetailsView.setBackgroundColor(color)
-    }
-
     private inner class ForecastPopupCallback : BottomSheetBehavior.BottomSheetCallback() {
-
-        private val startColor = resources.getColor(R.color.ui_forecast_view_start_color)
-        private val finishColor = resources.getColor(R.color.ui_forecast_view_finish_color)
 
         override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
 
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            val color = (startColor to finishColor).intermediateColor(slideOffset)
-
-            setBackgroundColor(color)
-
             chevrone.transition = abs(slideOffset)
 
             onSlideCallback(slideOffset)

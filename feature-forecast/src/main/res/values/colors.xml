@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="forecast_details_view_bg_color">@color/core_black_russian_50</color>
+
+    <color name="forecast_tip_start_color">@color/core_black_russian_0</color>
+    <color name="forecast_tip_end_color">@color/core_black_russian_50</color>
+</resources>
