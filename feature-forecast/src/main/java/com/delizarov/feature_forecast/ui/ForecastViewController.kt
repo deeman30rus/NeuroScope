@@ -23,7 +23,11 @@ class ForecastViewController(
     private val iocContainer = ForecastIocContainer(forecastView.context)
 
     private val resources = forecastView.resources
-    private val carousel: SunSignCarousel = forecastView.findViewById(R.id.sunsign_carousel)
+    private val carousel: SunSignCarousel = forecastView.findViewById<SunSignCarousel>(R.id.sunsign_carousel).apply {
+        addOnStopScrollListener {
+            presenter.onDemandToShowForecast()
+        }
+    }
 
     private val forecastDetailsView: ForecastDetailsView =
         forecastView.findViewById<ForecastDetailsView>(R.id.background).apply {
@@ -31,6 +35,8 @@ class ForecastViewController(
 
             forecastPeriodChangedListener = {
                 this@ForecastViewController.forecastPeriod = it
+
+                presenter.onDemandToShowForecast()
             }
         }
 
