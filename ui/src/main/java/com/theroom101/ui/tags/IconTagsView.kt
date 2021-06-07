@@ -34,7 +34,7 @@ class IconTagsView @JvmOverloads constructor(
         requestLayout()
     }
 
-    fun clear() {
+    private fun clear() {
         removeAllViews()
         tags.clear()
     }
@@ -48,7 +48,7 @@ class IconTagsView @JvmOverloads constructor(
         }
 
         val icon = ResourcesCompat.getDrawable(resources, tag.iconRes, null)
-        setCompoundDrawables(icon, null, null, null)
+        setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
         compoundDrawablePadding = dp(4)
 
         setTextColor(ResourcesCompat.getColor(resources, R.color.core_white50, null))

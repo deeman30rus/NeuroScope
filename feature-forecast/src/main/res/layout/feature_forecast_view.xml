@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -9,18 +9,22 @@
         android:id="@+id/period_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
         app:sv_values="@array/feature_forecast_periods"
         app:sv_selected="0" />
 
     <com.theroom101.ui.tags.IconTagsView
         android:id="@+id/planet_tags"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp" />
 
     <TextView
         android:id="@+id/forecast_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:textSize="14sp"
         android:textColor="@color/core_white50"
         android:fontFamily="@font/gilroy_regular" />
@@ -28,6 +32,9 @@
     <com.theroom101.ui.chart.ChartView
         android:id="@+id/forecast_impact"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp" />
 
 </LinearLayout>

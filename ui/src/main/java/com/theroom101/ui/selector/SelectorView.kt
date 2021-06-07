@@ -83,6 +83,10 @@ class SelectorView @JvmOverloads constructor(
             }
 
             selected = a.getInt(R.styleable.SelectorView_sv_selected, NOT_SELECTED)
+
+            if (selected != NOT_SELECTED) {
+                getChildAt(selected).isSelected = true
+            }
         }
 
         orientation = HORIZONTAL
