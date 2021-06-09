@@ -3,7 +3,9 @@ package com.delizarov.feature_forecast.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.delizarov.feature_forecast.R
 import com.delizarov.feature_forecast.domain.models.Forecast
@@ -28,6 +30,7 @@ class ForecastDetailsView @JvmOverloads constructor(
     private val periodSelector: SelectorView
     private val forecastText: TextView
     private val forecastImpact: ChartView
+    private val progressBar: ProgressBar
 
     val forecastPeriod: ForecastPeriod
         get() {
@@ -47,6 +50,21 @@ class ForecastDetailsView @JvmOverloads constructor(
             }
         }
 
+    var isLoading = false
+        set(value) {
+            if (field == value) return
+
+            field = value
+
+            if (field) {
+                progressBar.visibility = View.VISIBLE
+                forecastText.visibility = View.GONE
+            } else {
+                progressBar.visibility = View.GONE
+                forecastText.visibility = View.VISIBLE
+            }
+        }
+
     init {
         val inflater = LayoutInflater.from(context)
 
@@ -63,6 +81,7 @@ class ForecastDetailsView @JvmOverloads constructor(
         planetTags = findViewById(R.id.planet_tags)
         forecastText = findViewById(R.id.forecast_text)
         forecastImpact = findViewById(R.id.forecast_impact)
+        progressBar = findViewById(R.id.loading)
     }
 
     private fun showPlanetTags(tags: List<IconTag>) {

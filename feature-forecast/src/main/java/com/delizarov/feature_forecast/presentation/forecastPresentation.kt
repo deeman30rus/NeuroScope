@@ -19,7 +19,13 @@ interface ForecastMvpView: MvpView {
     val sunSign: SunSign
 
     fun showForecast(forecast: Forecast)
+
+    fun showProgress(debounce: Long)
+
+    fun hideProgress()
 }
+
+private const val PROGRESS_DEBOUNCE_MS = 200L
 
 class ForecastPresenter(
     private val getForecastUseCase: GetForecastUseCase,
@@ -30,7 +36,11 @@ class ForecastPresenter(
 
     fun onDemandToShowForecast() {
         mainScope.launch {
+            view.showProgress(PROGRESS_DEBOUNCE_MS)
+
             val forecast = withContext(dispatchers.io) { getForecastUseCase.execute(view.forecastParams) }
+
+            view.hideProgress()
 
             view.showForecast(forecast)
         }
