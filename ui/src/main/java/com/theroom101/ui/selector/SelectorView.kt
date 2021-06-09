@@ -149,7 +149,6 @@ class SelectorView @JvmOverloads constructor(
         animation = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = ANIMATION_DURATION
 
-            interpolator
             addUpdateListener {
                 val progress = it.animatedValue as Float
 

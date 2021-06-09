@@ -23,7 +23,7 @@ private open class LoggerImpl(
 
 object DebugLog {
 
-    const val DEFAULT_TAG = "delizarov"
+    private const val DEFAULT_TAG = "delizarov"
 
     private val loggers = mutableMapOf<String, Logger>(
         DEFAULT_TAG to LoggerImpl.create(DEFAULT_TAG)
