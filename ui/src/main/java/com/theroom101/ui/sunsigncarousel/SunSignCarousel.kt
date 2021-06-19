@@ -5,7 +5,6 @@ import android.content.res.Resources
 import android.util.AttributeSet
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
 import com.theroom101.core.android.dp
 import com.theroom101.core.domain.SunSign
 import com.theroom101.core.math.sign
@@ -20,11 +19,17 @@ class SunSignCarousel @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : RecyclerView(context, attrs, defStyleAttr) {
 
-    interface OnScrollListener {
+    fun interface OnScrollListener {
 
         fun onScroll(cur: SunSign, shift: Float)
     }
 
+    fun interface OnStopScrollingListener {
+
+        fun onStopScroll(sunSign: SunSign)
+    }
+
+    private val stopScrollListeners = mutableListOf<OnStopScrollingListener>()
     private val scrollListeners = mutableListOf<OnScrollListener>()
 
     private val snapHelper = LinearSnapHelper()
@@ -55,6 +60,14 @@ class SunSignCarousel @JvmOverloads constructor(
         addOnScrollListener(RecyclerScrollListener())
     }
 
+    fun addOnStopScrollListener(listener: OnStopScrollingListener) {
+        stopScrollListeners.add(listener)
+    }
+
+    fun removeOnStopScrollListener(listener: OnStopScrollingListener) {
+        stopScrollListeners.remove(listener)
+    }
+
     fun addOnScrollListener(listener: OnScrollListener) {
         scrollListeners.add(listener)
     }
@@ -69,6 +82,12 @@ class SunSignCarousel @JvmOverloads constructor(
         }
     }
 
+    private fun notifyListenersOnStopScrolling() {
+        for (listener in stopScrollListeners) {
+            listener.onStopScroll(sunSign)
+        }
+    }
+
     private inner class RecyclerScrollListener : RecyclerView.OnScrollListener() {
 
         private var accumulator = 0
@@ -80,9 +99,9 @@ class SunSignCarousel @JvmOverloads constructor(
         }
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//            if (newState == SCROLL_STATE_IDLE) {
-//                notifyListenersOnScrolling(0f)
-//            }
+            if (newState == SCROLL_STATE_IDLE) {
+                notifyListenersOnStopScrolling()
+            }
         }
 
         private fun handleScrolling(dx: Int) {

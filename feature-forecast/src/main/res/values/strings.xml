@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="forecast_period_today">Сегодня</string>
+    <string name="forecast_period_tomorrow">Завтра</string>
+    <string name="forecast_period_week">Неделя</string>
+
+    <string name="forecast_impact_career">Карьера</string>
+    <string name="forecast_impact_family">Семья</string>
+    <string name="forecast_impact_business">Бизнесс</string>
+    <string name="forecast_impact_love">Любовь</string>
+    <string name="forecast_impact_luck">Удача</string>
+
+    <string-array name="feature_forecast_periods">
+        <item>@string/forecast_period_today</item>
+        <item>@string/forecast_period_tomorrow</item>
+        <item>@string/forecast_period_week</item>
+    </string-array>
+</resources>

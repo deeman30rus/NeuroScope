@@ -20,6 +20,6 @@
     <!-- // Main content area -->
 
     <include
-        layout="@layout/ui_view_forecast_bottom_sheet" />
+        layout="@layout/feature_forecast_bottom_sheet" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

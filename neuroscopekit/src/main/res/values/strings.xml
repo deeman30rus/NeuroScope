@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">NeuroScopeKit</string>
+
+    <string-array name="kit_selector_view_test_values">
+        <item>Item One</item>
+        <item>Item 2</item>
+        <item>Item Three</item>
+    </string-array>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_planet_mercury_name">Меркурий</string>
+    <string name="core_planet_venus_name">Венера</string>
+    <string name="core_planet_earth_name">Земля</string>
+    <string name="core_planet_mars_name">Марс</string>
+    <string name="core_planet_jupiter_name">Юпитер</string>
+    <string name="core_planet_saturn_name">Сатурн</string>
+    <string name="core_planet_uranus_name">Уран</string>
+    <string name="core_planet_neptune_name">Нептун</string>
+</resources>

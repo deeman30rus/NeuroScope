@@ -2,7 +2,7 @@ package com.theroom101.ui.utils
 
 import androidx.annotation.ColorInt
 
-internal fun Pair<Int, Int>.intermediateColor(fraction: Float): Int {
+fun Pair<Int, Int>.intermediateColor(fraction: Float): Int {
     fun interpolate(s: Int, e: Int, f: Float) = (s + (e - s) * f).toInt()
 
     val start = Color.create(first)

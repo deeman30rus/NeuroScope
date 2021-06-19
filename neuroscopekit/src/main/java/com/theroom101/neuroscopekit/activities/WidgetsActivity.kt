@@ -13,6 +13,8 @@ class WidgetsActivity: BaseActivity() {
     private val menu = Menu.Builder().apply {
         items.add(ScreenMenuItem("Sun sing carousel", SunSignCarouselActivity::class))
         items.add(ScreenMenuItem("Parallax bg", ParallaxBgActivity::class))
+        items.add(ScreenMenuItem("Selector", SelectorViewActivity::class))
+        items.add(ScreenMenuItem("Chart", ChartActivity::class))
     }.build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
