@@ -1,6 +1,7 @@
 package com.theroom101.ui.parallax.vm
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Point
 import com.theroom101.core.assertions.Asserts
 import com.theroom101.core.math.Vector

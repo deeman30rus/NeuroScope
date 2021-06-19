@@ -35,8 +35,7 @@ class ParallaxView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) :
-    View(context, attrs, defStyleAttr) {
+): View(context, attrs, defStyleAttr) {
 
     private val gravitometer = Gravitometer(context, ::updateGravity)
     private val scope = MainScope() + SupervisorJob()
@@ -46,8 +45,6 @@ class ParallaxView @JvmOverloads constructor(
     private val choreographer: Choreographer by lazy { Choreographer.getInstance() }
 
     private val frameRequester = FrameHandler()
-
-    private var initialized = false
 
     private val layers = mutableListOf<LayerViewModel>()
     private val starDrawables = mutableMapOf<StarModel, Drawable>()
@@ -79,8 +76,6 @@ class ParallaxView @JvmOverloads constructor(
 
         gravitometer.release()
         scope.coroutineContext.cancelChildren()
-
-        initialized = false
     }
 
     private fun updateGravity(gravity: Vector) {
@@ -111,8 +106,6 @@ class ParallaxView @JvmOverloads constructor(
                 layers.flatMap { it.stars }.map { it to starDrawableFactory.createStarDrawable(it) }
             )
         }
-
-        initialized = true
     }
 
     private fun Canvas.draw(layers: List<LayerViewModel>) = layers.forEach { it.drawOn(this) }

@@ -1,4 +1,4 @@
-include ':feature-forecast'
+include ':forecast'
 include ':core'
 include ':ui'
 include ':neuroscopekit'
