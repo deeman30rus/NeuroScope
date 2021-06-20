@@ -22,13 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 
-    <com.delizarov.feature_forecast.ui.BottomSheetTipView
+    <com.delizarov.forecast.ui.BottomSheetTipView
         android:id="@+id/tip"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_gravity="center_horizontal" />
 
-    <com.delizarov.feature_forecast.ui.ForecastDetailsView
+    <com.delizarov.forecast.ui.ForecastDetailsView
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

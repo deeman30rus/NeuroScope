@@ -1,60 +1,51 @@
-package com.theroom101.ui.parallax.vm
+package com.delizarov.forecast.ui.nightsky.layers
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Point
+import com.delizarov.forecast.ui.StarDrawableFactory
+import com.delizarov.forecast.ui.nightsky.stars.StarModel
+import com.delizarov.forecast.ui.nightsky.stars.StarSize
+import com.delizarov.forecast.ui.nightsky.stars.StarType
 import com.theroom101.core.assertions.Asserts
-import com.theroom101.core.math.Vector
 import com.theroom101.core.math.createArea
 import com.theroom101.core.math.randomPoint
-import com.theroom101.ui.models.StarModel
-import com.theroom101.ui.utils.StarSize
-import com.theroom101.ui.utils.StarType
-import kotlin.math.min
 import kotlin.random.Random
 
-/**
- * from mg = kx (spring model)
- * x = mg / k => a = m / k
- */
-internal class LayerViewModel private constructor(
-    private val a: Float,
+internal class StarsLayerViewModel(
+    a: Float,
     val stars: List<StarModel>
-) {
+) : ParallaxLayerViewModel(a) {
 
-    private var accel = Vector()
-
-    private var progress = Progress()
-
-    private var interpolator = Interpolator(Vector(), Vector())
-    var gravity = Vector()
-        set(value)  {
-            interpolator = Interpolator(accel, value)
-
-            field = value
-
-            progress.renew()
-        }
+    private val starDrawableFactory = StarDrawableFactory
 
     private val active = stars.filter { it.isShining }
 
-    val dx: Int
-        get() = (accel.x * a).toInt()
+    private val starDrawables = stars.map { it to starDrawableFactory.createStarDrawable(it) }.toMap()
 
-    val dy: Int
-        get() = (accel.y * a).toInt()
-
-    fun update() {
-        active.forEach { star ->
+    override fun updateState() {
+        for (star in active) {
             if (star.isShining) star.shine()
-            else star.dim()
+            else (star.dim())
         }
+    }
 
-        if (accel == gravity) return
+    override fun drawOnCanvas(canvas: Canvas) {
+        for (star in stars) {
+            val drawable = starDrawables[star] ?: error("Model to drawable mapping corrupted")
 
+            val alpha = (255 * star.alpha).toInt()
 
-        accel = interpolator.value(progress.value)
-        progress.inc()
+            drawable.setBounds(
+                star.x + dx,
+                star.y + dy,
+                star.x + dx + star.size,
+                star.y + dy + star.size
+            )
+            drawable.alpha = alpha
+
+            drawable.draw(canvas)
+        }
     }
 
     class Builder {
@@ -66,7 +57,7 @@ internal class LayerViewModel private constructor(
         var factor: Float = -1f
         lateinit var starsDistribution: List<Float>
 
-        fun build(): LayerViewModel {
+        fun build(): StarsLayerViewModel {
             Asserts.assertTrue(layerNo != -1)
             Asserts.assertTrue(viewWidth != -1)
             Asserts.assertTrue(viewHeight != -1)
@@ -96,7 +87,7 @@ internal class LayerViewModel private constructor(
                 )
             }.toList()
 
-            return LayerViewModel(
+            return StarsLayerViewModel(
                 a = deltaMax / 5.5f,
                 stars = stars
             )
@@ -104,32 +95,5 @@ internal class LayerViewModel private constructor(
     }
 }
 
-internal fun layerViewModel(block: LayerViewModel.Builder.() -> Unit) = LayerViewModel.Builder().apply(block).build()
-
-private class Progress {
-
-    var value = 0f
-        private set
-
-    fun renew() {
-        value = 0f
-    }
-
-    fun inc() {
-        value = min(1f, value + 1f / 30)
-    }
-}
-
-private class Interpolator(
-    private val start: Vector,
-    private val end: Vector
-) {
-
-    /**
-     * calculates intermediate value between [start] and [end] with given progress
-     * @param progress float value in range 0 .. 1
-     */
-    fun value(progress: Float): Vector {
-        return start + (end - start) * progress
-    }
-}
+internal fun starLayerVm(block: StarsLayerViewModel.Builder.() -> Unit) =
+    StarsLayerViewModel.Builder().apply(block).build()

@@ -1,8 +1,8 @@
-package com.delizarov.feature_forecast.data
+package com.delizarov.forecast.data
 
-import com.delizarov.feature_forecast.domain.models.Forecast
-import com.delizarov.feature_forecast.domain.models.ForecastImpact
-import com.delizarov.feature_forecast.domain.models.ForecastParams
+import com.delizarov.forecast.domain.models.Forecast
+import com.delizarov.forecast.domain.models.ForecastImpact
+import com.delizarov.forecast.domain.models.ForecastParams
 import com.theroom101.core.domain.Planets
 import kotlinx.coroutines.delay
 import java.util.*

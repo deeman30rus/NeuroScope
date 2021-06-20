@@ -1,4 +1,4 @@
-package com.delizarov.feature_forecast
+package com.delizarov.forecast
 
 import org.junit.Test
 

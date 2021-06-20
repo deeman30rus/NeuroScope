@@ -2,13 +2,13 @@ package com.theroom101.neuroscope.activities
 
 import android.os.Bundle
 import android.view.ViewGroup
-import com.delizarov.feature_forecast.ui.ForecastViewController
+import com.delizarov.forecast.ui.ForecastViewController
 import com.theroom101.core.android.BaseActivity
 import com.theroom101.neuroscope.R
 import com.theroom101.neuroscope.ui.ZodiacViewController
 import com.theroom101.ui.sunsignbadge.SunSignBadgeView
 import com.theroom101.ui.sunsigncarousel.SunSignCarousel
-import com.theroom101.ui.zodiacview.ZodiacView
+import com.delizarov.forecast.ui.zodiac.ZodiacView
 
 class MainActivity : BaseActivity() {
 

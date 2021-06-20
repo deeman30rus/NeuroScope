@@ -13,6 +13,10 @@ object Asserts {
         if (!condition) fail(msg)
     }
 
+    fun assertFalse(condition: Boolean, msg: LazyMessage = { "" }) {
+        if (condition) fail(msg)
+    }
+
     fun assertNull(obj: Any?, msg: LazyMessage = { "" }) {
         if (obj != null) fail(msg)
     }

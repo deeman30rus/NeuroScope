@@ -1,7 +1,6 @@
-package com.theroom101.ui.models
+package com.delizarov.forecast.ui.nightsky.stars
 
 import android.graphics.Point
-import com.theroom101.ui.utils.StarType
 
 private const val INC = 0.005f
 

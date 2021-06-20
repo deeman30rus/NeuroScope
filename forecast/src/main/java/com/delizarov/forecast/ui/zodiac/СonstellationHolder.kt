@@ -1,11 +1,11 @@
-package com.theroom101.ui.zodiacview
+package com.delizarov.forecast.ui.zodiac
 
 import android.graphics.Point
+import com.delizarov.forecast.ui.nightsky.stars.StarModel
+import com.delizarov.forecast.ui.nightsky.stars.StarSize
+import com.delizarov.forecast.ui.nightsky.stars.StarType
 import com.theroom101.core.android.dp
 import com.theroom101.core.domain.SunSign
-import com.theroom101.ui.models.StarModel
-import com.theroom101.ui.utils.StarSize
-import com.theroom101.ui.utils.StarType
 
 internal object Constellations {
     private val constellations = mapOf(

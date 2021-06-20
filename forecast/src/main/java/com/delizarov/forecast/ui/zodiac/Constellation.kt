@@ -1,6 +1,6 @@
-package com.theroom101.ui.zodiacview
+package com.delizarov.forecast.ui.zodiac
 
-import com.theroom101.ui.models.StarModel
+import com.delizarov.forecast.ui.nightsky.stars.StarModel
 
 /**
  * Like math graph, where stars are vertices and edges is set of connected vertices (indices represented in [Constellation.stars] field)

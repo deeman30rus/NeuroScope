@@ -1,8 +1,8 @@
-package com.delizarov.feature_forecast.domain.interactors
+package com.delizarov.forecast.domain.interactors
 
-import com.delizarov.feature_forecast.data.ForecastRepository
-import com.delizarov.feature_forecast.domain.models.Forecast
-import com.delizarov.feature_forecast.domain.models.ForecastParams
+import com.delizarov.forecast.data.ForecastRepository
+import com.delizarov.forecast.domain.models.Forecast
+import com.delizarov.forecast.domain.models.ForecastParams
 import com.theroom101.core.domain.SuspendableUseCase
 
 class GetForecastUseCase(

@@ -1,9 +1,9 @@
-package com.delizarov.feature_forecast.presentation
+package com.delizarov.forecast.presentation
 
-import com.delizarov.feature_forecast.domain.interactors.GetForecastUseCase
-import com.delizarov.feature_forecast.domain.models.Forecast
-import com.delizarov.feature_forecast.domain.models.ForecastParams
-import com.delizarov.feature_forecast.domain.models.ForecastPeriod
+import com.delizarov.forecast.domain.interactors.GetForecastUseCase
+import com.delizarov.forecast.domain.models.Forecast
+import com.delizarov.forecast.domain.models.ForecastParams
+import com.delizarov.forecast.domain.models.ForecastPeriod
 import com.theroom101.core.android.Dispatchers
 import com.theroom101.core.domain.SunSign
 import com.theroom101.core.mvp.MvpPresenter

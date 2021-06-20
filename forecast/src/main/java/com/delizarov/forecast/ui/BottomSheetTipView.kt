@@ -1,4 +1,4 @@
-package com.delizarov.feature_forecast.ui
+package com.delizarov.forecast.ui
 
 import android.content.Context
 import android.graphics.Canvas
@@ -19,8 +19,8 @@ internal class BottomSheetTipView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private val startColor = resources.getColor(com.delizarov.feature_forecast.R.color.forecast_tip_start_color)
-    private val finishColor = resources.getColor(com.delizarov.feature_forecast.R.color.forecast_tip_end_color)
+    private val startColor = resources.getColor(com.delizarov.forecast.R.color.forecast_tip_start_color)
+    private val finishColor = resources.getColor(com.delizarov.forecast.R.color.forecast_tip_end_color)
 
     private val tipRect = Rect()
     private val lineRect = Rect()

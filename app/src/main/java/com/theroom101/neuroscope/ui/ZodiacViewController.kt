@@ -3,12 +3,12 @@ package com.theroom101.neuroscope.ui
 import com.theroom101.core.domain.SunSign
 import com.theroom101.ui.sunsignbadge.SunSignBadgeView
 import com.theroom101.ui.sunsigncarousel.SunSignCarousel
-import com.theroom101.ui.zodiacview.ZodiacView
+import com.delizarov.forecast.ui.zodiac.ZodiacView
 
 class ZodiacViewController(
-        private val badgeView: SunSignBadgeView,
-        private val zodiacView: ZodiacView,
-        startSign: SunSign
+    private val badgeView: SunSignBadgeView,
+    private val zodiacView: ZodiacView,
+    startSign: SunSign
 ) : SunSignCarousel.OnScrollListener {
 
     init {

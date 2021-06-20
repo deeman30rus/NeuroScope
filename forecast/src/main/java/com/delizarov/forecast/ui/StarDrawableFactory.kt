@@ -1,11 +1,12 @@
-package com.theroom101.ui.models
+package com.delizarov.forecast.ui
 
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import com.theroom101.ui.utils.StarType
+import com.delizarov.forecast.ui.nightsky.stars.StarModel
+import com.delizarov.forecast.ui.nightsky.stars.StarType
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit

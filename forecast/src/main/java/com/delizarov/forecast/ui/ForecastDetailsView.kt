@@ -1,4 +1,4 @@
-package com.delizarov.feature_forecast.ui
+package com.delizarov.forecast.ui
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,10 +7,10 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.delizarov.feature_forecast.R
-import com.delizarov.feature_forecast.domain.models.Forecast
-import com.delizarov.feature_forecast.domain.models.ForecastImpact
-import com.delizarov.feature_forecast.domain.models.ForecastPeriod
+import com.delizarov.forecast.R
+import com.delizarov.forecast.domain.models.Forecast
+import com.delizarov.forecast.domain.models.ForecastImpact
+import com.delizarov.forecast.domain.models.ForecastPeriod
 import com.theroom101.core.domain.Planets
 import com.theroom101.ui.chart.ChartItem
 import com.theroom101.ui.chart.ChartView

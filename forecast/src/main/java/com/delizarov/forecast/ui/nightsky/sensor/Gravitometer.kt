@@ -1,4 +1,4 @@
-package com.theroom101.ui.parallax.sensor
+package com.delizarov.forecast.ui.nightsky.sensor
 
 import android.content.Context
 import android.hardware.Sensor

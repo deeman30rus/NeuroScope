@@ -1,8 +1,8 @@
-package com.delizarov.feature_forecast.domain.models
+package com.delizarov.forecast.domain.models
 
 import android.content.Context
 import androidx.annotation.StringRes
-import com.delizarov.feature_forecast.R
+import com.delizarov.forecast.R
 import com.theroom101.core.domain.Planets
 import com.theroom101.core.domain.SunSign
 import java.util.*

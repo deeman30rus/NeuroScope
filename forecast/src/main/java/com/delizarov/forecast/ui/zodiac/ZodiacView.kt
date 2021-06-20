@@ -1,17 +1,17 @@
-package com.theroom101.ui.zodiacview
+package com.delizarov.forecast.ui.zodiac
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import com.delizarov.forecast.ui.StarDrawableFactory
+import com.delizarov.forecast.ui.nightsky.stars.StarModel
 import com.theroom101.core.android.dp
 import com.theroom101.core.android.dpF
 import com.theroom101.core.domain.SunSign
 import com.theroom101.core.math.sign
 import com.theroom101.ui.R
-import com.theroom101.ui.models.StarDrawableFactory
-import com.theroom101.ui.models.StarModel
 import kotlin.math.min
 
 /**
