@@ -13,6 +13,8 @@ internal enum class StarSize(
     Large(dp(19), dp(26)),
     ExtraLarge(dp(27), dp(32));
 
+    val range = min .. max
+
     fun size() = Random.nextInt(min .. max)
 
     companion object {

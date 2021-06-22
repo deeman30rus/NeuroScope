@@ -3,7 +3,7 @@ package com.delizarov.forecast.ui.nightsky.layers
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Point
-import com.delizarov.forecast.ui.StarDrawableFactory
+import com.delizarov.forecast.ui.nightsky.StarDrawableFactory
 import com.delizarov.forecast.ui.nightsky.stars.StarModel
 import com.delizarov.forecast.ui.nightsky.stars.StarSize
 import com.delizarov.forecast.ui.nightsky.stars.StarType

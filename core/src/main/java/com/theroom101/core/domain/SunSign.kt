@@ -1,6 +1,7 @@
 package com.theroom101.core.domain
 
 // todo make abstract to change sun sign set
+// todo move out from core
 
 enum class SunSign {
     Capricorn,

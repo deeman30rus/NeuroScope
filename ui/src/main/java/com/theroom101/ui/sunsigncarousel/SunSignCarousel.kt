@@ -21,6 +21,10 @@ class SunSignCarousel @JvmOverloads constructor(
 
     fun interface OnScrollListener {
 
+        /**
+         * @param cur currently selected [SunSign]
+         * @param shift floating point value in range [0 .. 1] represents progress of shift
+         */
         fun onScroll(cur: SunSign, shift: Float)
     }
 

@@ -9,11 +9,7 @@
     <!--  Main content area  -->
 
     <com.delizarov.forecast.ui.nightsky.NightSkyView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <com.delizarov.forecast.ui.zodiac.ZodiacView
-        android:id="@+id/zodiac_view"
+        android:id="@+id/night_sky_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

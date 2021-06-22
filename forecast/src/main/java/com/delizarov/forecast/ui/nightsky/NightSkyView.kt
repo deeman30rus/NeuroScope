@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
 import com.theroom101.core.assertions.Asserts
+import com.theroom101.core.log.DebugLog
 
 /**
  * Android [View] to render parallax layers of stars and constellations
@@ -13,25 +14,18 @@ class NightSkyView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-): View(context, attrs, defStyleAttr), NightSkyViewModel.Observer {
+) : View(context, attrs, defStyleAttr), NightSkyViewModel.Observer {
 
-    private val vm = NightSkyViewModel(context)
+    private var viewModel: NightSkyViewModel? = null
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-
-        Asserts.assertFalse(vm.isBound) { "Probably forget to unbound view or multiple rebindings" }
-        if (vm.isBound) {
-            vm.unbind(this)
-        }
-
-        vm.bind(this, w, h)
+    fun bind(vm: NightSkyViewModel) {
+        viewModel = vm
+        vm.observe(this)
     }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-
-        vm.unbind(this)
+    fun unbindVm() {
+        viewModel?.removeObserver(this)
+        viewModel = null
     }
 
     override fun onStateChanged() {
@@ -41,8 +35,10 @@ class NightSkyView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        for (layerVm in vm.layers) {
-            layerVm.drawOnCanvas(canvas)
+        viewModel?.let { vm ->
+            for (layerVm in vm.layers) {
+                layerVm.drawOnCanvas(canvas)
+            }
         }
     }
 }

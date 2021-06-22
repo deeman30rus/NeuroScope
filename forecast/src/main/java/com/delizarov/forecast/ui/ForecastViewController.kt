@@ -8,6 +8,8 @@ import com.delizarov.forecast.di.ForecastIocContainer
 import com.delizarov.forecast.domain.models.Forecast
 import com.delizarov.forecast.domain.models.ForecastPeriod
 import com.delizarov.forecast.presentation.ForecastMvpView
+import com.delizarov.forecast.ui.nightsky.datasource.ConstellationScatteringChangedCallback
+import com.delizarov.forecast.ui.nightsky.datasource.ConstellationScatteringSource
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.theroom101.core.domain.SunSign
 import com.theroom101.ui.sunsigncarousel.SunSignCarousel

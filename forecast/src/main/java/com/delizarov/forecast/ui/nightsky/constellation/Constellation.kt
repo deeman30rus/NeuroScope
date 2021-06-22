@@ -1,4 +1,4 @@
-package com.delizarov.forecast.ui.zodiac
+package com.delizarov.forecast.ui.nightsky.constellation
 
 import com.delizarov.forecast.ui.nightsky.stars.StarModel
 

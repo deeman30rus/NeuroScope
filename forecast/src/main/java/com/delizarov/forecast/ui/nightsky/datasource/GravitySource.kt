@@ -1,4 +1,4 @@
-package com.delizarov.forecast.ui.nightsky.parallax
+package com.delizarov.forecast.ui.nightsky.datasource
 
 import android.content.Context
 import android.view.Choreographer

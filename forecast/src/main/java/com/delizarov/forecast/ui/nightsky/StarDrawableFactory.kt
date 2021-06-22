@@ -1,4 +1,4 @@
-package com.delizarov.forecast.ui
+package com.delizarov.forecast.ui.nightsky
 
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -33,7 +33,7 @@ object StarDrawableFactory {
     }
 
     fun init(resources: Resources) {
-        this.resources = resources
+        StarDrawableFactory.resources = resources
 
         prepare()
     }
