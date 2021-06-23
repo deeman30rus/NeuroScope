@@ -70,10 +70,6 @@ class SunSignBadgeView @JvmOverloads constructor(
             topPadding + infoTextSize.toInt() + textMargin + nameTextSize.toInt() + botPadding
     )
 
-    fun setSunSign(sunSign: SunSign) {
-        state = State.Idle(sunSign)
-    }
-
     fun translate(from: SunSign, to: SunSign, progress: Float) {
         state = State.Transition(from, to, progress)
     }

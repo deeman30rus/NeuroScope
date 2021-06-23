@@ -3,17 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/core_cornflower_blue"
+    android:background="@drawable/forecast_bg_main_gradient"
     tools:context=".activities.MainActivity">
 
     <!--  Main content area  -->
 
-    <com.theroom101.ui.parallax.ParallaxView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <com.theroom101.ui.zodiacview.ZodiacView
-        android:id="@+id/zodiac_view"
+    <com.delizarov.forecast.ui.nightsky.NightSkyView
+        android:id="@+id/night_sky_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
